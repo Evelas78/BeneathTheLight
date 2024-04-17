@@ -48,8 +48,8 @@ public class scr_Raycasts_Main : MonoBehaviour
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             down_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
             0f, //No rotation
-            UnityEngine.Vector2.down, //Down is the direction we want it to go to check for the floor
-            characterScript.changeTo.y, //Negated since going up means positively going down and vice versa, so to fix it, we negate
+            UnityEngine.Vector2.up, //Down is the direction we want it to go to check for the floor
+            characterScript.velocity.y - footOffset, //Negated since going up means positively going down and vice versa, so to fix it, we negate
             groundLayer //Target only the ground layers
             );
 
@@ -88,7 +88,7 @@ public class scr_Raycasts_Main : MonoBehaviour
     {
         if(_target.normal.y < 0)
         {
-            characterScript.changeTo.y = -(currentColliderPosition.y - _target.point.y) ;
+            characterScript.velocity.y = -(currentColliderPosition.y - _target.point.y) ;
             //Sets up characterState back to running, and totalJumps back to 0 if necessary
 
         }

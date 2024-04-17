@@ -9,7 +9,6 @@ using UnityEngine;
 public abstract class scr_Basic_Entity : MonoBehaviour
 {
     protected IDScript objectIDs;
-
     protected scr_Gravity_Component gravMoveComp = null;
     protected scr_Raycasts_Main raycasterComp = null;
     protected scr_Momentum_Component momentumComp = null;
@@ -23,7 +22,10 @@ public abstract class scr_Basic_Entity : MonoBehaviour
     public BoxCollider2D currentCollider;
     public int characterState = GLOBAL_CONSTANTS.CharacterStates.Running;
     public float MovementStrength;
-    public UnityEngine.Vector3 changeTo = new UnityEngine.Vector3(0,0,0);
+
+    private float mass = 10.0f; 
+    public UnityEngine.Vector3 acceleration = new UnityEngine.Vector3(0,0,0);
+    public UnityEngine.Vector3 velocity = new UnityEngine.Vector3(0,0,0);
 
     void Awake()
     {
@@ -58,13 +60,13 @@ public abstract class scr_Basic_Entity : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log("REGUPDATE");
         CharacterUpdate();   
     }
     void FixedUpdate() {
-        Debug.Log("FIXUPDATE");
+
         if(gravMoveFixedUpdate != null)
-            {gravMoveFixedUpdate.Invoke();}
+            {gravMoveFixedUpdate.Invoke();
+                    Debug.Log("GravUpdate");}
         CharacterFixedUpdate();
         if(momentumFixedUpdate != null)
             {momentumFixedUpdate.Invoke();}
@@ -72,7 +74,7 @@ public abstract class scr_Basic_Entity : MonoBehaviour
             {raycasterFixedUpdate.Invoke();}
 
         //Updates the position at the very end of the frame
-        currentRigidBody.transform.position += changeTo;
+        currentRigidBody.transform.position += velocity;
 
     }
     public abstract void CharacterFixedUpdate();

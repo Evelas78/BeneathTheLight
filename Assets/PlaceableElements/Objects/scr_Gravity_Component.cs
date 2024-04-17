@@ -11,6 +11,6 @@ public class scr_Gravity_Component : MonoBehaviour
    
    public void GravityUpdate()
    {
-      characterScript.changeTo.y -= gravStrength;
+      characterScript.velocity.y -= gravStrength;
    }
 }

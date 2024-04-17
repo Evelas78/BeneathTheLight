@@ -16,19 +16,19 @@ public class scr_MainChar_Main : scr_Basic_Entity
         currentEntityGameObject = gameObject; 
         currentRigidBody = currentEntityGameObject.GetComponent<Rigidbody2D>();
         currentCollider = currentEntityGameObject.GetComponent<BoxCollider2D>();
+
+        MovementStrength = 0.1f;
         //Test
-        
-        /*
+
         gravMoveComp = gameObject.AddComponent<scr_Gravity_Component>();
             gravMoveComp.characterScript = this;
-        */
 
         /*
         momentumComp = gameObject.AddComponent<scr_Momentum_Component>();
             momentumComp.characterScript = this;
         */
         
-        /*
+
         raycasterComp = gameObject.AddComponent<scr_Raycasts_Main>();
             raycasterComp.characterScript = this;
             
@@ -42,7 +42,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
             raycasterComp.footOffset = raycasterComp.down_boxCastSize.y / 2f;
 
             raycasterComp.groundLayer = GLOBAL_CONSTANTS.objectType.isFloor << 7; 
-        */
+
     }
     int left,right,down,up;
     int movingHorizontal,movingVertical;
@@ -63,7 +63,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
     public override void CharacterFixedUpdate()
     {
         Debug.Log(movingHorizontal + " " + movingVertical);
-        changeTo.x = movingHorizontal;
-        changeTo.y = movingVertical;
+        velocity.x += movingHorizontal * MovementStrength;
+        velocity.y += movingVertical * MovementStrength;
     }
 }

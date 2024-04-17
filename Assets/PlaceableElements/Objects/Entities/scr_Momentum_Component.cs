@@ -25,9 +25,9 @@ public class scr_Momentum_Component : MonoBehaviour
 
     public void momentumFixedUpdate()
     {
-        if(characterScript.changeTo.x > instant_decay_max_x)
+        if(characterScript.velocity.x > instant_decay_max_x)
         {
-            characterScript.changeTo.x -= characterScript.changeTo.x * decay_speed_x; 
+            characterScript.velocity.x -= characterScript.velocity.x * decay_speed_x; 
         }
 
     }
