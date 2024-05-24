@@ -44,6 +44,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
     private float maxVelocity_X;
     private float lowMaxVelocity_X = .75f, highMaxVelocity_X = 1.5f; 
     private float negMaxVelocity_Y = -1f, posMaxVelocity_Y = .85f;
+    private float raycast_yOffset = .1f, raycast_xOffset = 0f;
 
     public override void CharacterStart()
     {
@@ -64,6 +65,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
     private float currProg_X = 0f, currProg_Y = 0f;
     private float currProgSlowStart_X = .35f;
     private static float progMultiplier_XFactor = 3f, progMultiplier_XBase = MathF.E, maxVelocity_X_Factor = 3/4f;
+    [SerializeField] private bool rayCast_groundHit = false;
     public override void CharacterFixedUpdate()
     {   
         if(movingHorizontal != 0 && currProg_X < maxProg_X && prev_movingHorizontal == movingHorizontal)
@@ -73,7 +75,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
             {
                 _currProg_add_X = MathF.Pow(progMultiplier_XBase, -(currProg_X/maxProg_X) * progMultiplier_XFactor);
             }
-            Debug.Log(_currProg_add_X + " " + maxProg_X);
+            //Debug.Log(_currProg_add_X + " " + maxProg_X);
 
             currProg_X += _currProg_add_X;
 
@@ -91,13 +93,13 @@ public class scr_MainChar_Main : scr_Basic_Entity
 
         MovementStrength_X = Mathf.Lerp(minStrength_X, maxStrength_X, currProg_X/maxProg_X);
         
-        bool _rayCast_groundHit = true; //replace with raycast function
-
-        accelComp.applyAcceleration_X(movingHorizontal, MovementStrength_X, mass, ref velocity, _rayCast_groundHit);
-
         
 
-        if(_rayCast_groundHit)
+        accelComp.applyAcceleration_X(movingHorizontal, MovementStrength_X, mass, ref velocity, rayCast_groundHit);
+
+        
+        //Logic for determing if you can still jump
+        if(rayCast_groundHit)
         {
             prev_movingVertical = movingVertical;
             currProg_Y = maxProg_PosY;
@@ -110,6 +112,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
             }
         }
 
+        //Determining strength of jump/fall based on how long you held it + determining max velocity
         float _currMaxProg = 0f;
         if(movingVertical == 1 && prev_movingVertical == 1)
         {
@@ -123,7 +126,7 @@ public class scr_MainChar_Main : scr_Basic_Entity
 
             _currMaxProg = maxProg_PosY;
         }
-        else if (!_rayCast_groundHit && movingVertical == -1)
+        else if (!rayCast_groundHit && movingVertical == -1)
         {
             if(prev_movingVertical != -1)
             {
@@ -146,11 +149,33 @@ public class scr_MainChar_Main : scr_Basic_Entity
 
         //Determined by speed of your curr Y
         maxVelocity_X= Mathf.Lerp(lowMaxVelocity_X, highMaxVelocity_X, currProg_Y);
-        accelComp.applyAcceleration_Y(movingVertical, MovementStrength_Y, _rayCast_groundHit, mass, ref velocity);
+        accelComp.applyAcceleration_Y(movingVertical, MovementStrength_Y, rayCast_groundHit, mass, ref velocity);
 
+        //Clamp velocities by max velocity
         velocity.x = Math.Clamp(velocity.x, -maxVelocity_X, maxVelocity_X);
         velocity.y = Mathf.Clamp(velocity.y, negMaxVelocity_Y, posMaxVelocity_Y);
 
+        RaycastHit2D downRaycast = raycasterComp.downRaycast(raycast_xOffset, raycast_yOffset, ref velocity);
+        if(downRaycast.collider != null)
+        {
+            Debug.Log("Found something");
+            rayCast_groundHit = true;
+
+            IDScript hitIDScript = downRaycast.collider.gameObject.GetComponent<IDScript>();
+            if(hitIDScript.objectType == GLOBAL_CONSTANTS.objectType.isFloor)
+            {
+                float distance = currentCollider.transform.position.y - downRaycast.point.y;
+                velocity.y = distance;
+            }
+            else if(hitIDScript.objectType == GLOBAL_CONSTANTS.objectType.isEntity)
+            {
+
+            }
+        }
+        else
+        {
+            rayCast_groundHit = false;
+        }
     }
 
     void OnDrawGizmos()

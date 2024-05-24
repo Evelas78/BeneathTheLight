@@ -51,7 +51,7 @@ public class scr_Acceleration_Component : MonoBehaviour
         entityAcceleration.x = _currForce / _mass;
         entityVelocity.x += entityAcceleration.x;
 
-        Debug.Log("F "  + _currForce + " E_X_ACC" + entityAcceleration.x + " DIR" + _controlDirection);
+        //Debug.Log("F "  + _currForce + " E_X_ACC" + entityAcceleration.x + " DIR" + _controlDirection);
     }
     public void applyAcceleration_Y(float _controlDirection, float _moveStrength, bool _touchingGround, float _mass, 
     ref UnityEngine.Vector3 entityVelocity)

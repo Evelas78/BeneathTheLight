@@ -40,7 +40,7 @@ public class scr_Raycasts_Main : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void downRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
+    public RaycastHit2D downRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
         UnityEngine.Vector3 currentColliderPosition = 
         new UnityEngine.Vector3(currCharCollider.transform.position.x + colliderOffset.x, 
@@ -56,46 +56,57 @@ public class scr_Raycasts_Main : MonoBehaviour
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             down_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
             0f, //No rotation
-            UnityEngine.Vector2.up, //Down is the direction we want it to go to check for the floor
-            castFilter, //Negated since going up means positively going down and vice versa, so to fix it, we negate
-            DownHit, //Target only the ground layers
-            entityVelocity.y + _yOffset
+            UnityEngine.Vector2.up, //We use Up instead of down to avoid negating anything
+            castFilter, //Filter we mad eearlier 
+            DownHit, //List to store all hits
+            entityVelocity.y + _yOffset //Distance we send the boxcast, using the velocity (where we'll end up) & the offset we use (make up for starting higher/lowerr)
         );
 
-        RaycastHit2D _closestHit;
-        _closestHit = DownHit.ElementAt<RaycastHit2D>(0);
-        foreach(RaycastHit2D _hit_obj in DownHit)
+        RaycastHit2D _closestHit = new RaycastHit2D();
+        if(DownHit.Any())
         {
-            if(_closestHit.distance > _hit_obj.distance)
+            _closestHit = DownHit.ElementAt<RaycastHit2D>(0);
+    
+            foreach(RaycastHit2D _hit_obj in DownHit)
             {
-                _closestHit = _hit_obj;
-            }
-            else if(_closestHit.distance == _hit_obj.distance)
-            {
-                IDScript _currCloseHitIdScript = _closestHit.rigidbody.gameObject.GetComponent<IDScript>();
-                IDScript _contenderCloseHitIDScript = _hit_obj.rigidbody.gameObject.GetComponent<IDScript>();
-                if(_currCloseHitIdScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy)
+                if(_closestHit.distance > _hit_obj.distance)
                 {
-                    //we dont change since the current closest one is an enemy
-                }
-                else if (_currCloseHitIdScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy)
-                {
-                    //We change, since enemies that cant be touched wouldnt have triggered this anyway
                     _closestHit = _hit_obj;
                 }
-                else
+                else if(_closestHit.distance == _hit_obj.distance)
                 {
-                    //if depth is closer then we land on that one
-                    if(_closestHit.rigidbody.gameObject.transform.position.z > _hit_obj.rigidbody.gameObject.transform.position.z)
+                    IDScript _currCloseHitIdScript = _closestHit.collider.gameObject.GetComponent<IDScript>();
+                    IDScript _contenderCloseHitIDScript = _hit_obj.collider.gameObject.GetComponent<IDScript>();
+                    if(_currCloseHitIdScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy)
                     {
+                        //we dont change since the current closest one is an enemy
+                    }
+                    else if (_currCloseHitIdScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy)
+                    {
+                        //We change, since enemies that cant be touched wouldnt have triggered this anyway
                         _closestHit = _hit_obj;
                     }
+                    else
+                    {
+                        //if depth is closer then we land on that one
+                        if(_closestHit.rigidbody.gameObject.transform.position.z > _hit_obj.rigidbody.gameObject.transform.position.z)
+                        {
+                            _closestHit = _hit_obj;
+                        }
 
+                    }
                 }
             }
         }
 
-        //Closest Object is now determined and now we act upon that object
-        
+        //Check if _closestHit.collider != null so if it does then it hit something,
+        // if not then you can act upon it (or lack an action thereof)
+        return _closestHit;
+    }
+    public void landOnGround()
+    {
+
+
+    
     }
 }

@@ -37,6 +37,7 @@ public static class GLOBAL_CONSTANTS
     {
         public const int jumpable = 1;
         public const int bouncy = 2;
+        public const int damaging = 3;
     
     }
 }
