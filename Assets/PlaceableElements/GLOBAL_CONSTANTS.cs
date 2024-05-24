@@ -2,6 +2,10 @@ using UnityEngine;
 public static class GLOBAL_CONSTANTS 
 {
     public const float GRAVITY_MAG = 10.0f;
+    public struct layers
+    {
+        public const int main = 1 << 7;
+    }
     public struct objectType
     {
         public const int isEntity = 0;
@@ -27,6 +31,13 @@ public static class GLOBAL_CONSTANTS
         public const int Running = 1;
         public const int Falling = 2;
         public const int activeAir = 3;
+    }
+
+    public struct jumpType
+    {
+        public const int jumpable = 1;
+        public const int bouncy = 2;
+    
     }
 }
 

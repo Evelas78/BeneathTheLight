@@ -19,26 +19,18 @@ public class scr_MainChar_Main : scr_Basic_Entity
         maxProg_NegY = (1f * Time.fixedDeltaTime);
 
         objectIDs.versionType = GLOBAL_CONSTANTS.entityType.isPlayer;
-        objectIDs.jumpable = true;
-        objectIDs.groundFriction_affected = true;
-        objectIDs.gravity_affected = true;
-        objectIDs.ground_affected = true;
 
         raycasterComp = gameObject.AddComponent<scr_Raycasts_Main>();
-        raycasterComp.characterScript = this;
-        
-        raycasterComp.colliderXScale = currentCollider.bounds.size.x;
-        raycasterComp.colliderYScale = currentCollider.bounds.size.y;
-
+        raycasterComp.currCharCollider = currentCollider;
         raycasterComp.depthBasedCollision = true;
-        raycasterComp.down_boxCastSize = new UnityEngine.Vector2(raycasterComp.colliderXScale / 2f, raycasterComp.colliderYScale / 16f);
+
+        raycasterComp.boxSize_X_factor = 1f;
+        raycasterComp.boxSize_Y_factor = 1/16f;
 
         //Origin of the boxCast will be relative to the position we give. So starting it at the Y (which is the bottom middle of the object)
-        raycasterComp.footOffset = raycasterComp.down_boxCastSize.y / 2f;
-
-        raycasterComp.groundLayer = GLOBAL_CONSTANTS.objectType.isFloor << 7; 
-        
-        accelComp = gameObject.AddComponent<scr_Acceleration_Component>();
+        accelComp = gameObject.AddComponent<scr_Acceleration_Component>();  
+        accelComp.gFrictionApplies = true;
+        accelComp.gravApplies = true;
     }
     [SerializeField] private int left,right;
     [SerializeField] private int movingHorizontal = 0,movingVertical = 0;
@@ -99,9 +91,9 @@ public class scr_MainChar_Main : scr_Basic_Entity
 
         MovementStrength_X = Mathf.Lerp(minStrength_X, maxStrength_X, currProg_X/maxProg_X);
         
-        bool _rayCast_groundHit = false; //replace with raycast function
+        bool _rayCast_groundHit = true; //replace with raycast function
 
-        accelComp.applyAcceleration_X(movingHorizontal, MovementStrength_X, mass, ref velocity, objectIDs.groundFriction_affected, _rayCast_groundHit);
+        accelComp.applyAcceleration_X(movingHorizontal, MovementStrength_X, mass, ref velocity, _rayCast_groundHit);
 
         
 
@@ -154,9 +146,17 @@ public class scr_MainChar_Main : scr_Basic_Entity
 
         //Determined by speed of your curr Y
         maxVelocity_X= Mathf.Lerp(lowMaxVelocity_X, highMaxVelocity_X, currProg_Y);
-        accelComp.applyAcceleration_Y(movingVertical, MovementStrength_Y, _rayCast_groundHit, mass, ref velocity, objectIDs.gravity_affected, objectIDs.ground_affected);
+        accelComp.applyAcceleration_Y(movingVertical, MovementStrength_Y, _rayCast_groundHit, mass, ref velocity);
 
         velocity.x = Math.Clamp(velocity.x, -maxVelocity_X, maxVelocity_X);
         velocity.y = Mathf.Clamp(velocity.y, negMaxVelocity_Y, posMaxVelocity_Y);
+
+    }
+
+    void OnDrawGizmos()
+    {
+        UnityEngine.Vector3 cubeDebugSize = new UnityEngine.Vector3(0.1f,0.1f,0.1f);
+        UnityEngine.Vector3 offsetSSS = new UnityEngine.Vector3(currentCollider.offset.x, 0f, 0f);
+        Gizmos.DrawCube(currentCollider.transform.position + offsetSSS, cubeDebugSize);
     }
 }

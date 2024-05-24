@@ -15,16 +15,18 @@ public class scr_Acceleration_Component : MonoBehaviour
     public UnityEngine.Vector3 entityAcceleration = new UnityEngine.Vector3(0,0,0); 
 
     //If touching a ground, how much slower/faster should I decay.   
-    bool frictionApplies = true; 
+    public bool gFrictionApplies = false; 
+    public bool gravApplies = false;
+    public bool ignorePlatforms = false;
 
     public void applyAcceleration_X(float _controlDirection, float _moveStrength, float _mass, 
-    ref UnityEngine.Vector3 entityVelocity, bool _gFriction, bool _gTouch)
+    ref UnityEngine.Vector3 entityVelocity, bool _gTouch)
     { 
         float velocity_direc = Math.Sign(entityVelocity.x);
         
         float frictionForce = friction_strength_x * -velocity_direc;
         
-        if(_gFriction && _gTouch)
+        if(gFrictionApplies && _gTouch)
         {
             frictionForce = ground_friction_strength_x * -velocity_direc; 
         }
@@ -52,17 +54,17 @@ public class scr_Acceleration_Component : MonoBehaviour
         Debug.Log("F "  + _currForce + " E_X_ACC" + entityAcceleration.x + " DIR" + _controlDirection);
     }
     public void applyAcceleration_Y(float _controlDirection, float _moveStrength, bool _touchingGround, float _mass, 
-    ref UnityEngine.Vector3 entityVelocity, bool _gravAffected, bool _groundAffected)
+    ref UnityEngine.Vector3 entityVelocity)
     {
         float _currForce = _controlDirection * _moveStrength;
 
-        if(_gravAffected)
+        if(gravApplies)
         {
-            if((_groundAffected && !_touchingGround) || !_groundAffected)
+            if((!ignorePlatforms && !_touchingGround) || ignorePlatforms)
             {
                 _currForce += -grav_strength * _mass;
             }
-            else if(_groundAffected && entityVelocity.y < 0)
+            else if(!ignorePlatforms && entityVelocity.y < 0)
             {   
                 _currForce = 0;
                 entityAcceleration.y = 0f;

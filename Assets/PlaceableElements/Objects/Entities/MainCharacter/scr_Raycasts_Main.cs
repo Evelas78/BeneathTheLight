@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -8,89 +9,93 @@ using UnityEngine.EventSystems;
 
 public class scr_Raycasts_Main : MonoBehaviour
 {   
-    public scr_Basic_Entity characterScript;
-    public UnityEngine.Vector2 down_boxCastSize;
-    public UnityEngine.Vector3 currentColliderPosition;
-    public bool depthBasedCollision = false; 
-    public float colliderXScale = 0f;
-    public float colliderYScale = 0f;
-    public int groundLayer = 1 << 7; //7 is the main layer where tiles, chars, and touchable objects exist
-
-    public float footOffset = 0f;
+    public BoxCollider2D currCharCollider;
+    public UnityEngine.Vector2 colliderOffset;
+    public UnityEngine.Vector2 colliderSize;
 
     public ContactFilter2D castFilter; 
+    public UnityEngine.Vector2 down_boxCastSize;
     public bool bypassFloorCollide = false;
-
-    // Start is called before the first frame update
+    public bool depthBasedCollision = false; 
+    //Since we use ID's, we will default to main layer for everything that is "in-game". 
+    //Could use binary if necessary for robustness but for now, its alright. 
+    public int targetLayer = 1 << GLOBAL_CONSTANTS.layers.main;
+    public float boxSize_X_factor, boxSize_Y_factor;
     void Awake()
     {
+        colliderOffset = currCharCollider.offset;
+        colliderSize = currCharCollider.size;
+        down_boxCastSize = new UnityEngine.Vector2(colliderSize.x * boxSize_X_factor, colliderSize.y * boxSize_Y_factor);
+
         //Sets up filters for the collision
         castFilter.useLayerMask = true;
+        castFilter.layerMask = targetLayer;
+
         castFilter.useDepth = depthBasedCollision;
         castFilter.useOutsideDepth = false;
+    
         castFilter.useNormalAngle = false;
         castFilter.useOutsideNormalAngle = false;
-        castFilter.layerMask = groundLayer;
-
+        castFilter.useTriggers = true;
     }
 
     // Update is called once per frame
-    public void RaycastFixedUpdate()
+    public void downRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
-        //Checking floor ones first, remember, the vector direction and distance only make the created box cast travel that whole direction, allowing it to check further away
-        currentColliderPosition = characterScript.currentCollider.transform.position;
+        UnityEngine.Vector3 currentColliderPosition = 
+        new UnityEngine.Vector3(currCharCollider.transform.position.x + colliderOffset.x, 
+                                currCharCollider.transform.position.y + colliderOffset.y, 
+                                currCharCollider.transform.position.z);
 
         //We change this position vector EACH TIME we switch types of casting
-        UnityEngine.Vector3 positionVector = new UnityEngine.Vector3(currentColliderPosition.x, currentColliderPosition.y + footOffset, currentColliderPosition.z);
-        
-        RaycastHit2D DownHit = 
+        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x +_xOffset, currentColliderPosition.y + _yOffset - colliderOffset.y);
+    
+        List<RaycastHit2D> DownHit = new List<RaycastHit2D>();
+
         Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             down_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
             0f, //No rotation
             UnityEngine.Vector2.up, //Down is the direction we want it to go to check for the floor
-            characterScript.velocity.y - footOffset, //Negated since going up means positively going down and vice versa, so to fix it, we negate
-            groundLayer //Target only the ground layers
-            );
+            castFilter, //Negated since going up means positively going down and vice versa, so to fix it, we negate
+            DownHit, //Target only the ground layers
+            entityVelocity.y + _yOffset
+        );
 
+        RaycastHit2D _closestHit;
+        _closestHit = DownHit.ElementAt<RaycastHit2D>(0);
+        foreach(RaycastHit2D _hit_obj in DownHit)
+        {
+            if(_closestHit.distance > _hit_obj.distance)
+            {
+                _closestHit = _hit_obj;
+            }
+            else if(_closestHit.distance == _hit_obj.distance)
+            {
+                IDScript _currCloseHitIdScript = _closestHit.rigidbody.gameObject.GetComponent<IDScript>();
+                IDScript _contenderCloseHitIDScript = _hit_obj.rigidbody.gameObject.GetComponent<IDScript>();
+                if(_currCloseHitIdScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy)
+                {
+                    //we dont change since the current closest one is an enemy
+                }
+                else if (_currCloseHitIdScript.objectType != GLOBAL_CONSTANTS.entityType.isEnemy && _contenderCloseHitIDScript.objectType == GLOBAL_CONSTANTS.entityType.isEnemy)
+                {
+                    //We change, since enemies that cant be touched wouldnt have triggered this anyway
+                    _closestHit = _hit_obj;
+                }
+                else
+                {
+                    //if depth is closer then we land on that one
+                    if(_closestHit.rigidbody.gameObject.transform.position.z > _hit_obj.rigidbody.gameObject.transform.position.z)
+                    {
+                        _closestHit = _hit_obj;
+                    }
 
-        UnityEngine.Vector2 DEBUG_P1 = new UnityEngine.Vector2(characterScript.currentCollider.transform.position.x - colliderXScale/2f, characterScript.currentCollider.transform.position.y + down_boxCastSize.y);
-        UnityEngine.Vector2 DEBUG_P2 = new UnityEngine.Vector2(characterScript.currentCollider.transform.position.x + colliderXScale/2f, characterScript.currentCollider.transform.position.y + down_boxCastSize.y);
-        UnityEngine.Vector2 DEBUG_P3 = new UnityEngine.Vector2(characterScript.currentCollider.transform.position.x - colliderXScale/2f, characterScript.currentCollider.transform.position.y);
-        UnityEngine.Vector2 DEBUG_P4 = new UnityEngine.Vector2(characterScript.currentCollider.transform.position.x + colliderXScale/2f, characterScript.currentCollider.transform.position.y);
+                }
+            }
+        }
 
+        //Closest Object is now determined and now we act upon that object
         
-        Debug.DrawLine(DEBUG_P3, DEBUG_P4, Color.red);
-        Debug.DrawLine(DEBUG_P1, DEBUG_P3, Color.red);
-        Debug.DrawLine(DEBUG_P1, DEBUG_P2, Color.red);
-        Debug.DrawLine(DEBUG_P2, DEBUG_P4, Color.red);
-
-
-        if(DownHit.collider != null && !bypassFloorCollide)
-        {
-            if(DownHit.collider.gameObject.GetComponent<IDScript>().objectType == GLOBAL_CONSTANTS.objectType.isFloor)
-            {
-                Debug.Log("Hit");
-                Debug.DrawLine(characterScript.currentCollider.transform.position, DownHit.normal, Color.green);
-                HitFloor(DownHit);
-            }
-        }
-        else
-        {
-            //Check if theyre just jumping or if theyre actually falling because nothing is currently below them
-            if(characterScript.characterState != GLOBAL_CONSTANTS.CharacterStates.activeAir)
-            {
-                characterScript.characterState = GLOBAL_CONSTANTS.CharacterStates.Falling;
-            }
-        }
-    }
-    void HitFloor(RaycastHit2D _target)
-    {
-        if(_target.normal.y < 0)
-        {
-            characterScript.velocity.y = -(currentColliderPosition.y - _target.point.y) ;
-            //Sets up characterState back to running, and totalJumps back to 0 if necessary
-
-        }
     }
 }

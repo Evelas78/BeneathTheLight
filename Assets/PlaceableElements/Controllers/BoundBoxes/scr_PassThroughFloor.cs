@@ -10,7 +10,7 @@ public class scr_PassThroughFloor : MonoBehaviour
         objectIDs = gameObject.AddComponent<IDScript>();
         objectIDs.objectType = GLOBAL_CONSTANTS.objectType.isFloor;
         objectIDs.versionType = GLOBAL_CONSTANTS.floorType.platform;
-        objectIDs.jumpable = true;
-        objectIDs.damaging = false;
+        objectIDs.jump_level = GLOBAL_CONSTANTS.jumpType.jumpable;
+        objectIDs.damage_level = 0;
     }
 }
