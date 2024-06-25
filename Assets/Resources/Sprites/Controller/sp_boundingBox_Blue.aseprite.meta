@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1b3f5b50372eca54e952b9deb554870f
+guid: bb92e3fba20631742a2021b725a91fe6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -75,7 +75,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 1
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +88,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 1
+    defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638481185593167915
+  platformSettingsDirtyTick: 638548386423530162
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: sp_boundingBox
+  - name: sp_boundingBox_Blue
     originalName: 
-    pivot: {x: 0, y: 1}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
-    border: {x: 1, y: 1, z: 1, w: 1}
+    border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
       width: 24
       height: 24
-    spriteID: 535013f135b93bb46829a22c673d0bc1
+    spriteID: 3c372e39074507f4ebeefd25ff941fba
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,44 +141,24 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  spriteSheetImportData:
-  - name: sp_boundingBox_0
-    originalName: 
-    pivot: {x: 0, y: 0}
-    alignment: 0
-    border: {x: 1, y: 1, z: 1, w: 1}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 4
-      width: 24
-      height: 24
-    spriteID: 6d56380b204779843bb4db53089fd5d3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
+  spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1716944967
-    name: sp_boundingBox
+    guid: 564319800
+    name: sp_boundingBox_Blue
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: sp_boundingBox
+    - name: sp_boundingBox_Blue
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
+        x: 12
         y: 0
         width: 24
         height: 24
-      spriteId: 535013f135b93bb46829a22c673d0bc1
+      spriteId: 3c372e39074507f4ebeefd25ff941fba
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -233,4 +213,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 24, y: 24}
+  canvasSize: {x: 48, y: 48}

@@ -14,7 +14,9 @@ public class scr_mainBody_Main : scr_Basic_Entity
     [SerializeField] private float maxProg_X, maxProg_PosY, maxProg_NegY; //Realistically, itll never touch this as the multiplier will decrease the rate of growth
     public override void CharacterAwake()
     {
-        animationComp = gameObject.AddComponent<scr_mainBody_acr>();
+        animationComp = gameObject.AddComponent<scr_animController>();
+        scr_animations currIdleAnim = gameObject.AddComponent<scr_Anim_Idle_Hat>();
+        animationComp.spriteLoad(currIdleAnim);
         airState = GLOBAL_CONSTANTS.AirStates.Grounded;
 
         maxProg_X =  (4f / Time.fixedDeltaTime);
@@ -27,8 +29,8 @@ public class scr_mainBody_Main : scr_Basic_Entity
         raycasterComp.currCharCollider = currentCollider;
         raycasterComp.depthBasedCollision = true;
 
-        raycasterComp.boxSize_X_factor = 1f;
-        raycasterComp.boxSize_Y_factor = 1/16f;
+        raycasterComp.boxSize_regFactor = 1f;
+        raycasterComp.boxSize_arbFactor = 1/16f;
 
 
         //Origin of the boxCast will be relative to the position we give. So starting it at the Y (which is the bottom middle of the object)
@@ -74,29 +76,9 @@ public class scr_mainBody_Main : scr_Basic_Entity
     [SerializeField] private bool rayCast_groundHit = false;
     public override void CharacterFixedUpdate()
     {   
-        if(rayCast_groundHit)
-        {
-            airState = GLOBAL_CONSTANTS.AirStates.Grounded;
-        }
-        
+        handleAirState();
         //Applies acceleration based on how long you are holding the left and right
         XFunc();
-
-        //Logic for determining state whether grounded or in air/jumping
-        if(airState == GLOBAL_CONSTANTS.AirStates.Grounded && movingVertical == 1)
-        {
-            currProg_Y = maxProg_PosY;
-            airState = GLOBAL_CONSTANTS.AirStates.activeAir;
-            storedMaxYProg = maxProg_PosY; 
-                       
-            prev_movingVertical = movingVertical;
-        }
-        else if(airState == GLOBAL_CONSTANTS.AirStates.activeAir && movingVertical != 1 && currProg_Y < maxProg_PosY_threshold * maxProg_PosY)
-        {
-            currProg_Y = 0;
-            airState = GLOBAL_CONSTANTS.AirStates.Falling;
-            storedMaxYProg = maxProg_NegY;
-        }
 
         //Applies acceleration for the Y based on how much youre holding it
         YFunc();
@@ -107,40 +89,8 @@ public class scr_mainBody_Main : scr_Basic_Entity
         velocity.x = Math.Clamp(velocity.x, -maxVelocity_X, maxVelocity_X);
         velocity.y = Mathf.Clamp(velocity.y, negMaxVelocity_Y, posMaxVelocity_Y);
         
-        RaycastHit2D downRaycast = raycasterComp.downRaycast(raycast_xOffset, raycast_yOffset, ref velocity);
-        if(downRaycast.collider != null)
-        {
-            Debug.Log("Found something " + downRaycast.collider.gameObject.name);
-
-            IDScript hitIDScript = downRaycast.collider.gameObject.GetComponent<IDScript>();
-            int targetType = hitIDScript.objectType;
-            switch(targetType)
-            {
-                case GLOBAL_CONSTANTS.objectType.isEnemy:
-                    break;
-                case GLOBAL_CONSTANTS.objectType.isPlayer:
-                    break;
-                case GLOBAL_CONSTANTS.objectType.isObject:
-                    break;
-                case GLOBAL_CONSTANTS.objectType.isPlatformFloor:
-                case GLOBAL_CONSTANTS.objectType.isSolidFloor:
-                    if(airState != GLOBAL_CONSTANTS.AirStates.activeAir)
-                    {
-                        raycasterComp.landOnGround(downRaycast, hitIDScript, raycast_yOffset, ref Health, ref velocity);
-                        rayCast_groundHit = true;
-                    }       
-                    else
-                        rayCast_groundHit = false;
-                    break;
-                default:
-                    Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
-                    break;
-            }
-        }
-        else
-        {
-            rayCast_groundHit = false;
-        }
+        raycastDownFunction();
+        determineActionState();
     }
     public void XFunc()
     { 
@@ -151,7 +101,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
             if(prev_movingHorizontal != movingHorizontal)
                 airChange_XFactor = .25f;
         }
-        
+
         if(movingHorizontal != 0 && currProg_X < maxProg_X && prev_movingHorizontal == movingHorizontal)
         {   
             float _currProg_add_X = 1f;
@@ -234,12 +184,97 @@ public class scr_mainBody_Main : scr_Basic_Entity
         
         accelComp.applyAcceleration_Y(movingVertical, MovementStrength_Y, rayCast_groundHit, mass, ref velocity);
     }
-    /*
-    void OnDrawGizmos()
+    public void raycastDownFunction()
     {
-        UnityEngine.Vector3 cubeDebugSize = new UnityEngine.Vector3(0.1f,0.1f,0.1f);
-        UnityEngine.Vector3 offsetSSS = new UnityEngine.Vector3(currentCollider.offset.x, 0f, 0f);
-        Gizmos.DrawCube(currentCollider.transform.position + offsetSSS, cubeDebugSize);
+        RaycastHit2D downRaycast = raycasterComp.downRaycast(raycast_xOffset, raycast_yOffset, ref velocity);
+        if(downRaycast.collider != null)
+        {
+            Debug.Log("Found something " + downRaycast.collider.gameObject.name);
+
+            GameObject hitObject = downRaycast.collider.gameObject;
+            IDScript hitIDScript = hitObject.GetComponent<IDScript>();
+
+            int targetType = hitIDScript.objectType;
+            switch(targetType)
+            {
+                case GLOBAL_CONSTANTS.objectType.isEnemy:
+                    break;
+                case GLOBAL_CONSTANTS.objectType.isPlayer:
+                    break;
+                case GLOBAL_CONSTANTS.objectType.isObject:
+                    break;
+                case GLOBAL_CONSTANTS.objectType.isPlatform:
+                case GLOBAL_CONSTANTS.objectType.isSolid:
+                    if(airState != GLOBAL_CONSTANTS.AirStates.activeAir)
+                    {
+                        raycasterComp.touchObject(downRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.down);
+                        rayCast_groundHit = true;
+                    }       
+                    else
+                        rayCast_groundHit = false;
+                    break;
+                default:
+                    Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
+                    break;
+            }
+        }
+        else
+        {
+            rayCast_groundHit = false;
+        }
     }
-    */
+    public void raycastRightFunction()
+    {
+        
+    }
+    public void handleAirState()
+    {
+        if(rayCast_groundHit)
+        {
+            airState = GLOBAL_CONSTANTS.AirStates.Grounded;
+        }
+    
+        //Logic for determining state whether grounded or in air/jumping
+        //if youre on the ground but want to jump, then the system will prime itself to put you at max jump strength, in the right aierrstate, and set the maxStoredY
+        if(airState == GLOBAL_CONSTANTS.AirStates.Grounded && movingVertical == 1)
+        {
+            currProg_Y = maxProg_PosY;
+            airState = GLOBAL_CONSTANTS.AirStates.activeAir;
+            storedMaxYProg = maxProg_PosY; 
+                       
+            prev_movingVertical = movingVertical;
+        }
+        //If actively jumping, youre no longer holding the jump button AND the currProgress on the jump has fallen less than the thresh hold we want, then set us to fall
+        //The reason we have a threshold is to ensure a minimum jump to prevent a player from just staying on the ground and looking kinda goofy
+        else if(airState == GLOBAL_CONSTANTS.AirStates.activeAir && movingVertical != 1 && currProg_Y < maxProg_PosY_threshold * maxProg_PosY)
+        {
+            currProg_Y = 0;
+            airState = GLOBAL_CONSTANTS.AirStates.Falling;
+            storedMaxYProg = maxProg_NegY;
+        }
+    }
+    public void determineActionState()
+    {
+        if(airState == GLOBAL_CONSTANTS.AirStates.Grounded)
+        {
+            if(movingHorizontal != 0)
+            {
+                characterState = GLOBAL_CONSTANTS.CharacterStates.Walking;
+            }
+            else
+            {
+                characterState = GLOBAL_CONSTANTS.CharacterStates.Idle;
+            }
+        }
+        else if(airState == GLOBAL_CONSTANTS.AirStates.Falling || airState == GLOBAL_CONSTANTS.AirStates.activeAir)
+        {
+            characterState = GLOBAL_CONSTANTS.CharacterStates.Jumping;
+        }
+    }
+
+    public override void DeathUpdate()
+    {
+        throw new NotImplementedException();
+    }
+
 }

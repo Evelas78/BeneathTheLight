@@ -11,6 +11,11 @@ public abstract class scr_animations : MonoBehaviour {
     protected String assetPathName;
     protected String spriteName;
     protected int numOfFrames;
+    public int currFrameMax;
+    [SerializeField] protected float currFrameProg = 0;
+    [SerializeField] protected int currFrameNum = 0;
+    [SerializeField] protected Boolean isCompleteLoop = false;
+    [SerializeField] protected scr_animations escapeAnimation;
     [SerializeField] protected Sprite[] frameArray = null;
     void Start()
     {   
@@ -49,7 +54,7 @@ public abstract class scr_animations : MonoBehaviour {
         storedFilePaths = Directory.GetFiles(@assetPathName, "*.asset").ToList<String>();
 
         numOfFrames = storedFilePaths.Count; //accounts for indexes
-
+        
         //Sort alphabetically/numerically, meaning each frame will be in the right order naturally, no real need to make our own sort program for this
         storedFilePaths.Sort();
         frameArray = new Sprite[numOfFrames];
@@ -66,5 +71,28 @@ public abstract class scr_animations : MonoBehaviour {
             Debug.Log(frameArray[i]);
         }           
     }
-    public abstract Sprite animationScript();
+    //Flush function so animations ALWAYS start at the beginning frame
+    public void Flush()
+    {
+        currFrameNum = 0;
+        currFrameProg = 0f;
+    }
+    public abstract Sprite animationScript(SpriteRenderer _currSpriteRender, scr_Basic_Entity _currEntityScript, scr_animController _currAnimController);
+    public static void autoFlip(SpriteRenderer _currSpriteRenderer, scr_Basic_Entity _currEntityScript)
+    {
+        _currSpriteRenderer.flipX = (_currEntityScript.getVelocity().x > 0) ? false : (_currEntityScript.getVelocity().x < 0) ? true : _currSpriteRenderer.flipX;
+    }
+    public void progressAnim(scr_animController _currAnimController, float _currFrameLength, int loopStartFrame, int loopEndFrame, bool partWillLoop)
+    {        
+        currFrameProg += 1 * Time.deltaTime;
+        if(currFrameProg >= _currFrameLength)
+        {
+            currFrameProg = 0;
+            
+            if(++currFrameNum > loopEndFrame && partWillLoop)
+                currFrameNum = loopStartFrame;
+            else
+                _currAnimController.spriteLoad(escapeAnimation);
+        }
+    }
 }

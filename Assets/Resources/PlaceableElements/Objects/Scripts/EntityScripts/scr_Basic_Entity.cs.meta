@@ -3,7 +3,13 @@ guid: 006ad269f01f4414da8f7b20c6b55523
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - currentEntityGameObject: {instanceID: 0}
+  - currentRigidBody: {instanceID: 0}
+  - currentCollider: {instanceID: 0}
+  - gameController: {fileID: 7152354786465865591, guid: 0764e6b2d680b1d4d84aae490300b115, type: 3}
+  - animationComp: {instanceID: 0}
+  - dmgEffect: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

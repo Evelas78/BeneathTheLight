@@ -2,28 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class scr_animController : MonoBehaviour
-{
-    protected Dictionary<int,scr_animations> animationDictionary = new Dictionary<int, scr_animations>();
+public class scr_animController : MonoBehaviour
+{   
     protected SpriteRenderer objRenderer;
-    protected GameObject currObject; 
     protected scr_Basic_Entity currEntityScript;
+    
     void Awake()
     {
-        currObject = gameObject;
+        //Grabs important items 
         objRenderer = gameObject.GetComponent<SpriteRenderer>();
         currEntityScript = gameObject.GetComponent<scr_Basic_Entity>();
-        fillDictionary();
     }
+
+    protected scr_animations currAnim = null;
 
     // Update is called once per frame
     void Update()
     {  
-        Sprite currentSprite = determineSpriteUpdate();
-        objRenderer.flipX = (currEntityScript.getVelocity().x >= 0) ? false : true;
-        determineSpriteUpdate();
+        Sprite currentSprite = currAnim.animationScript(objRenderer, currEntityScript, this);
+        //If positive, flip, else if negative, flip. Otherwise, stay the same.
+        objRenderer.flipX = (currEntityScript.getVelocity().x > 0) ? false : (currEntityScript.getVelocity().x < 0) ? true : objRenderer.flipX;
+        objRenderer.sprite = currentSprite;
+    }
+    
+    //thisll be called everytime we want to play a new animation/reset
+    public void spriteLoad(scr_animations targetAnim)
+    {
+        //Check if previous state is the same, else we wanna flush out the previous states data
+        if(currAnim != targetAnim)
+           Destroy(currAnim);
+
+        currAnim = targetAnim;
     }
 
-    public abstract void fillDictionary();
-    public abstract Sprite determineSpriteUpdate();
 }

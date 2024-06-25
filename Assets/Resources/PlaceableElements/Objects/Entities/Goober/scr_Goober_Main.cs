@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_controller_Main : MonoBehaviour
+public class scr_Goober_Main : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -13,6 +13,6 @@ public class scr_controller_Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class scr_Camera : MonoBehaviour
 {
-    public GameObject mainChar;
+    public GameObject target;
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
-        gameObject.transform.position = new UnityEngine.Vector3(mainChar.transform.position.x, mainChar.transform.position.y, gameObject.transform.position.z);
+        //Keep same Z to preserve correct view
+        gameObject.transform.position = new UnityEngine.Vector3(target.transform.position.x, target.transform.position.y, gameObject.transform.position.z);
     }
 }
