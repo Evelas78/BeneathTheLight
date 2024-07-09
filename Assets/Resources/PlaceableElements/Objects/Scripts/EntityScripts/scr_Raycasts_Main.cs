@@ -34,22 +34,23 @@ public class scr_Raycasts_Main : MonoBehaviour
         //y is arbitrary since all that matters is seeing the bottom
         vert_boxCastSize = new UnityEngine.Vector2(colliderSize.x * boxSize_regFactor, colliderSize.y * boxSize_arbFactor);
         //And vice versa for X
-        vert_boxCastSize = new UnityEngine.Vector2(colliderSize.x * boxSize_arbFactor, colliderSize.y * boxSize_regFactor);
+        horiz_boxCastSize = new UnityEngine.Vector2(colliderSize.x * boxSize_arbFactor, colliderSize.y * boxSize_regFactor);
     }
 
-    // Update is called once per frame
+    //To debug a raycast by showing its position with a gizmo, remove the UnityEngine.Vector3 from currentColliderPosition and positionVector
+    //Youll also have to edit the gizmo function with its debug offset (which one it affects and how)
     public RaycastHit2D downRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
 
-        currentColliderPosition = 
+        UnityEngine.Vector3 currentColliderPosition = 
         new UnityEngine.Vector3(currCharCollider.transform.position.x + colliderOffset.x, 
                                 currCharCollider.transform.position.y + colliderOffset.y, 
                                 currCharCollider.transform.position.z);
 
         //We change this position vector EACH TIME we switch types of casting
-        positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset, currentColliderPosition.y + _yOffset - colliderOffset.y);
+        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset, currentColliderPosition.y + _yOffset - colliderSize.y/2);
         
-        RaycastHit2D DownHit = Physics2D.BoxCast(
+        RaycastHit2D downHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             vert_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
             0f, //No rotation
@@ -57,12 +58,14 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.y - _yOffset, float.NegativeInfinity, 0f), //Distance we send the boxcast, using the velocity (where we'll end up) & the offset we use (make up for starting higher/lowerr)
             targetLayer //Layer we are trying to get casts from
         );
-
-        //Testing vars
+        
+        /* 
+        // --- TESTING VARS -----
         debugVelocity = entityVelocity;
         debug_Offset = _yOffset;
-        debugHitCast = DownHit;
-        return DownHit;
+        debugHitCast = downHit;
+        */
+        return downHit;
     }
     public RaycastHit2D upRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
@@ -72,9 +75,9 @@ public class scr_Raycasts_Main : MonoBehaviour
                                 currCharCollider.transform.position.z);
 
         //We change this position vector EACH TIME we switch types of casting
-        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset, currentColliderPosition.y - _yOffset + colliderOffset.y);
+        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset, currentColliderPosition.y - _yOffset + colliderSize.y/2);
         
-        RaycastHit2D DownHit = Physics2D.BoxCast(
+        RaycastHit2D upHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             vert_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
             0f, //No rotation
@@ -82,18 +85,24 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.y + _yOffset, 0f, Mathf.Infinity), //Distance we send the boxcast, using the velocity (where we'll end up) & the offset we use (make up for starting higher/lowerr)
             targetLayer //Layer we are trying to get casts from
         );
+        /* 
+        // --- TESTING VARS -----
+        debugVelocity = entityVelocity;
+        debug_Offset = _yOffset;
+        debugHitCast = upHit;
+        */
 
-        return DownHit;
+        return upHit;
     }
     public RaycastHit2D rightRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
-        UnityEngine.Vector3 currentColliderPosition = 
+        currentColliderPosition = 
         new UnityEngine.Vector3(currCharCollider.transform.position.x + colliderOffset.x, 
                                 currCharCollider.transform.position.y + colliderOffset.y, 
                                 currCharCollider.transform.position.z);
 
         //We change this position vector EACH TIME we switch types of casting
-        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x - _xOffset + colliderOffset.x, currentColliderPosition.y + _yOffset - colliderOffset.y);
+        positionVector = new UnityEngine.Vector2(currentColliderPosition.x - _xOffset + colliderSize.x/2, currentColliderPosition.y + _yOffset);
         
         RaycastHit2D rightHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
@@ -103,7 +112,16 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.x + _xOffset, 0f, Mathf.Infinity), //We add xOffset since itll always be slightly behind where we send out the check, and add velocity because we always want to check the direction we are going, clamp negative side, we'll never check on the inside like that
             targetLayer //Layer we are trying to get casts from
         );
-        Debug.Log(rightHit.collider);
+
+        if(rightHit.collider != null)
+        {
+            Debug.Log("RightHit");
+        }
+
+        // --- TESTING VARS -----
+        debugVelocity = entityVelocity;
+        debug_Offset = _xOffset;
+        debugHitCast = rightHit;
         
         return rightHit;
     }
@@ -114,10 +132,10 @@ public class scr_Raycasts_Main : MonoBehaviour
                                 currCharCollider.transform.position.y + colliderOffset.y, 
                                 currCharCollider.transform.position.z);
 
-        //We change this position vector EACH TIME we switch types of casting
-        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset - colliderOffset.x, currentColliderPosition.y + _yOffset - colliderOffset.y);
+        //We change this position vector EACH TIME we switch types of casting                                                                                                                                                              
+        UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset - colliderSize.x/2, currentColliderPosition.y + _yOffset);
         
-        RaycastHit2D rightHit = Physics2D.BoxCast(
+        RaycastHit2D leftHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             horiz_boxCastSize, //Precreated size based on the entire y size of our entity and a small sliver of x which is arbitrary
             0f, //No rotation
@@ -125,38 +143,65 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.x - _xOffset, Mathf.NegativeInfinity, 0f), //We subtract xOffset as itll always make up for it going to the left, clamp off the positive side since we'll never need to check within
             targetLayer //Layer we are trying to get casts from
         );
-        Debug.Log(rightHit.collider);
+    
+        /* 
+        // --- TESTING VARS -----
+        debugVelocity = entityVelocity;
+        debug_Offset = _xOffset;
+        debugHitCast = leftHit;
+        */
         
-        return rightHit;
+        return leftHit;
     }
 
     //Universal script for landing on something, since all of the floors and entities can be reduced to a generalized system
-    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, float _currOffset, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType)
+    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, float _currOffset, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType, bool _ignore)
     {
         
-        float velocity_Clamp = 0;
-        UnityEngine.Vector3 _currColliderPosition = currCharCollider.transform.position + new UnityEngine.Vector3(colliderOffset.x, colliderOffset.y, 0);
-        switch(_hitType)
+        if(!_ignore)
         {
-            case GLOBAL_CONSTANTS.Direction.down:
-            velocity_Clamp =  -((_currColliderPosition.y - colliderOffset.y) - (_hitTarget.collider.transform.position.y + _hitTarget.collider.transform.localScale.y)); //Get distance between original collider position and hitpoint, then add the offset
-            Debug.Log(currCharCollider.transform.position.y + " " + _hitTarget.point.y + " " + velocity_Clamp + " " + _hitTarget.collider.transform.localScale.y);
-            entityVelocity.y = velocity_Clamp;
-            break;
-            case GLOBAL_CONSTANTS.Direction.up:
-            velocity_Clamp =  _hitTarget.point.y - (_currColliderPosition.y + colliderOffset.y) - _currOffset; //Get distance between original collider position and hitpoint, then add the offset
-            entityVelocity.y = velocity_Clamp;
-            break;
+            float velocity_Clamp = 0;
+            UnityEngine.Vector3 _currColliderPosition = currCharCollider.transform.position + new UnityEngine.Vector3(colliderOffset.x, colliderOffset.y, 0);
+            switch(_hitType)
+            {
+                case GLOBAL_CONSTANTS.Direction.down:
+                    //Get distance between original collider position and hitpoint, then add the offset
+                    velocity_Clamp =  (_hitTarget.collider.transform.position.y + _hitTarget.collider.transform.localScale.y) - (_currColliderPosition.y - colliderSize.y/2);
+                    velocity_Clamp = Math.Clamp(velocity_Clamp, Mathf.NegativeInfinity, 0f);
+                    entityVelocity.y = velocity_Clamp;
+                    
+                    //Debug.Log(currCharCollider.transform.position.y + " " + _hitTarget.point.y + " " + velocity_Clamp + " " + _hitTarget.collider.transform.localScale.y);
+                break;
+                
+                case GLOBAL_CONSTANTS.Direction.up:
+                    //Get distance between original collider position and hitpoint, then add the offset
+                    velocity_Clamp =  (_hitTarget.collider.transform.position.y) - (_currColliderPosition.y + colliderSize.y/2); 
+                    velocity_Clamp = Math.Clamp(velocity_Clamp, 0f, Mathf.Infinity);
+                    entityVelocity.y = velocity_Clamp;
+                    
+                    //Debug.Log(currCharCollider.transform.position.y + " " + _hitTarget.point.y + " " + velocity_Clamp + " " + _hitTarget.collider.transform.localScale.y);
+                break;
+                
+                case GLOBAL_CONSTANTS.Direction.right:
+                    //We divide the local scale by two since the orig bin is in the middle
+                    velocity_Clamp = (_hitTarget.collider.transform.position.x - (_hitTarget.collider.transform.localScale.x / 2)) - (_currColliderPosition.x + colliderSize.x/2);
+                    velocity_Clamp = Math.Clamp(velocity_Clamp, 0f, Mathf.Infinity);
+                    entityVelocity.x = velocity_Clamp;
+                    Debug.Log("ERMMMMM RIGHT???");
 
-            case GLOBAL_CONSTANTS.Direction.left:
-            case GLOBAL_CONSTANTS.Direction.right:
-            entityVelocity.x = velocity_Clamp;
-            break;
+                break;
 
-            default:
-                throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + gameObject.name + "'s main script calls the raycast.touchObject with a valid hit type");
+                case GLOBAL_CONSTANTS.Direction.left:
+                    //We divide the local scale by two since the orig bin is in the middle
+                    velocity_Clamp = (_hitTarget.collider.transform.position.x + (_hitTarget.collider.transform.localScale.x / 2)) - (_currColliderPosition.x - colliderSize.x/2);
+                    velocity_Clamp = Math.Clamp(velocity_Clamp, Mathf.NegativeInfinity, 0f);
+                    entityVelocity.x = velocity_Clamp;
+                break;
+
+                default:
+                    throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + gameObject.name + "'s main script calls the raycast.touchObject with a valid hit type");
+            }
         }
-    
         if(_hitTarget_ID.hasEffectScript)
         {
             scr_Effect_Script currEffect = _hitObject.GetComponent<scr_Effect_Script>();
@@ -178,7 +223,7 @@ public class scr_Raycasts_Main : MonoBehaviour
         Gizmos.DrawCube(debugHitCast.point, cubeDebugSize);
 
         cubeDebugSize = new UnityEngine.Vector3(0.05f,0.05f,0.05f);
-        UnityEngine.Vector3 edit = new UnityEngine.Vector3(positionVector.x + debugVelocity.x, positionVector.y + debugVelocity.y - debug_Offset, 0f);
+        UnityEngine.Vector3 edit = new UnityEngine.Vector3(positionVector.x + debugVelocity.x + debug_Offset, positionVector.y, 0f);
         
         Gizmos.DrawCube(edit, cubeDebugSize);
     }

@@ -1,0 +1,1038 @@
+fileFormatVersion: 2
+guid: 735569e0d37a4994e805d501ed0acd9c
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: sp_stomper_Sneeze_Hat_Frame_0
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 399
+      width: 43
+      height: 54
+    spriteID: aba7c6893ce62f24886dc886767e90d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 399}
+  - name: sp_stomper_Sneeze_Hat_Frame_1
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 4
+      width: 43
+      height: 54
+    spriteID: 9d4c3d9a84936ac498b5b59a5e0cdb05
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 4}
+  - name: sp_stomper_Sneeze_Hat_Frame_2
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 66
+      width: 43
+      height: 54
+    spriteID: f482f70ba7e7ce54fb791c0f6da2d207
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 66}
+  - name: sp_stomper_Sneeze_Hat_Frame_3
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 128
+      width: 43
+      height: 54
+    spriteID: 2141816a6adc3bd4aaf4e09b6eb76600
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 128}
+  - name: sp_stomper_Sneeze_Hat_Frame_4
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 190
+      width: 43
+      height: 54
+    spriteID: 330e1f6de7856604291462069205d84f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 190}
+  - name: sp_stomper_Sneeze_Hat_Frame_5
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 252
+      width: 43
+      height: 54
+    spriteID: 913d9b98d054d3541ae74fe4f41a7c4f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 252}
+  - name: sp_stomper_Sneeze_Hat_Frame_6
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 314
+      width: 43
+      height: 54
+    spriteID: 8054623052922774f98d2053dc1c865e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 314}
+  - name: sp_stomper_Sneeze_Hat_Frame_7
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 376
+      width: 43
+      height: 54
+    spriteID: 8615ed1a664fe584589cec60f9c2f7a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 376}
+  - name: sp_stomper_Sneeze_Hat_Frame_8
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 59
+      y: 438
+      width: 43
+      height: 54
+    spriteID: 529492c9ec03ba14381c6bb3fa12a686
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 59, y: 438}
+  - name: sp_stomper_Sneeze_Hat_Frame_9
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 4
+      width: 43
+      height: 54
+    spriteID: d1880cf1ad0a7c243ad8c26dbf97a6c1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 4}
+  - name: sp_stomper_Sneeze_Hat_Frame_10
+    originalName: 
+    pivot: {x: 0.48936167, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 279
+      width: 47
+      height: 53
+    spriteID: bf6fbb70043ab2846b30142f206b0bab
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 279}
+  - name: sp_stomper_Sneeze_Hat_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 216
+      width: 46
+      height: 55
+    spriteID: 35bfe84add53cdf4d9e5ce2c7d1ae1d3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 216}
+  - name: sp_stomper_Sneeze_Hat_Frame_12
+    originalName: 
+    pivot: {x: 0.5217391, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 368
+      width: 46
+      height: 49
+    spriteID: ffb086dc7a90ebf43acb6453361d077d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 368}
+  - name: sp_stomper_Sneeze_Hat_Frame_13
+    originalName: 
+    pivot: {x: 0.44444445, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 76
+      width: 45
+      height: 64
+    spriteID: 28c1225937d00cc43bf0c33df2c7f4a4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 76}
+  - name: sp_stomper_Sneeze_Hat_Frame_14
+    originalName: 
+    pivot: {x: 0.48936167, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 47
+      height: 64
+    spriteID: 4cbcd9bdef866b4479db85cf6c971327
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: sp_stomper_Sneeze_Hat_Frame_15
+    originalName: 
+    pivot: {x: 0.4, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 148
+      width: 45
+      height: 60
+    spriteID: 2233f6fd800214d40af4b718b47b2cec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 148}
+  - name: sp_stomper_Sneeze_Hat_Frame_16
+    originalName: 
+    pivot: {x: 0.48936167, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 252
+      width: 47
+      height: 49
+    spriteID: cc3ae1cd64631034fa88aff376f0dad3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 252}
+  - name: sp_stomper_Sneeze_Hat_Frame_17
+    originalName: 
+    pivot: {x: 0.51111114, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 309
+      width: 45
+      height: 51
+    spriteID: e1e9b1c121cc66a46a21075c7fc27994
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 309}
+  - name: sp_stomper_Sneeze_Hat_Frame_18
+    originalName: 
+    pivot: {x: 0.6, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 461
+      width: 45
+      height: 42
+    spriteID: 958cc9bd007b0b54698f183b901d3a74
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 461}
+  - name: sp_stomper_Sneeze_Hat_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 340
+      width: 46
+      height: 51
+    spriteID: b3a462361daa50a4b92cd3adc0fb0886
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 340}
+  - name: sp_stomper_Sneeze_Hat_Frame_20
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 66
+      width: 43
+      height: 54
+    spriteID: c95d0cab11c9a8a43a9639d7a9575882
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 66}
+  - name: sp_stomper_Sneeze_Hat_Frame_21
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 128
+      width: 43
+      height: 54
+    spriteID: 96e6ac4937b197445858499ebe735cbc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 128}
+  - name: sp_stomper_Sneeze_Hat_Frame_22
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 190
+      width: 43
+      height: 54
+    spriteID: 9059544c1095e4445ac5cde1f502e938
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 190}
+  - name: sp_stomper_Sneeze_Hat_Frame_23
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 252
+      width: 43
+      height: 54
+    spriteID: f13af68e12447e847ba269fef8e8f878
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 252}
+  - name: sp_stomper_Sneeze_Hat_Frame_24
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 314
+      width: 43
+      height: 54
+    spriteID: fbef85f288d7a904cbabf64854d26c0e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 314}
+  - name: sp_stomper_Sneeze_Hat_Frame_25
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 376
+      width: 43
+      height: 54
+    spriteID: c4144ffc6ee4d514dbf7eafad58b2dc1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 376}
+  - name: sp_stomper_Sneeze_Hat_Frame_26
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 110
+      y: 438
+      width: 43
+      height: 54
+    spriteID: 07000e7f1fa0ec140b90776a6177e9e8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 110, y: 438}
+  - name: sp_stomper_Sneeze_Hat_Frame_27
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 4
+      width: 43
+      height: 54
+    spriteID: 11b6646761287a540b06f6a771e87765
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 4}
+  - name: sp_stomper_Sneeze_Hat_Frame_28
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 66
+      width: 43
+      height: 54
+    spriteID: 4458b9e7a984e6049a7fce1cf27862ad
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 66}
+  - name: sp_stomper_Sneeze_Hat_Frame_29
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 128
+      width: 43
+      height: 54
+    spriteID: 6b050e37f7ad16e449aaf14a54adedbf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 128}
+  - name: sp_stomper_Sneeze_Hat_Frame_30
+    originalName: 
+    pivot: {x: 0.4883721, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 161
+      y: 190
+      width: 43
+      height: 54
+    spriteID: fe7feab34f0b3734e83f4d382c1a8dca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 161, y: 190}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 90473265
+    name: sp_stomper_Sneeze_Hat
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: sp_stomper_Sneeze_Hat_Frame_0
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: aba7c6893ce62f24886dc886767e90d7
+    - name: sp_stomper_Sneeze_Hat_Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 9d4c3d9a84936ac498b5b59a5e0cdb05
+    - name: sp_stomper_Sneeze_Hat_Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: f482f70ba7e7ce54fb791c0f6da2d207
+    - name: sp_stomper_Sneeze_Hat_Frame_3
+      frameIndex: 3
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 2141816a6adc3bd4aaf4e09b6eb76600
+    - name: sp_stomper_Sneeze_Hat_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 330e1f6de7856604291462069205d84f
+    - name: sp_stomper_Sneeze_Hat_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 913d9b98d054d3541ae74fe4f41a7c4f
+    - name: sp_stomper_Sneeze_Hat_Frame_6
+      frameIndex: 6
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 8054623052922774f98d2053dc1c865e
+    - name: sp_stomper_Sneeze_Hat_Frame_7
+      frameIndex: 7
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 8615ed1a664fe584589cec60f9c2f7a4
+    - name: sp_stomper_Sneeze_Hat_Frame_8
+      frameIndex: 8
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 529492c9ec03ba14381c6bb3fa12a686
+    - name: sp_stomper_Sneeze_Hat_Frame_9
+      frameIndex: 9
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: d1880cf1ad0a7c243ad8c26dbf97a6c1
+    - name: sp_stomper_Sneeze_Hat_Frame_10
+      frameIndex: 10
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 47
+        height: 53
+      spriteId: bf6fbb70043ab2846b30142f206b0bab
+    - name: sp_stomper_Sneeze_Hat_Frame_11
+      frameIndex: 11
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 46
+        height: 55
+      spriteId: 35bfe84add53cdf4d9e5ce2c7d1ae1d3
+    - name: sp_stomper_Sneeze_Hat_Frame_12
+      frameIndex: 12
+      additiveSortOrder: 0
+      cellRect:
+        x: 8
+        y: 0
+        width: 46
+        height: 49
+      spriteId: ffb086dc7a90ebf43acb6453361d077d
+    - name: sp_stomper_Sneeze_Hat_Frame_13
+      frameIndex: 13
+      additiveSortOrder: 0
+      cellRect:
+        x: 12
+        y: 0
+        width: 45
+        height: 64
+      spriteId: 28c1225937d00cc43bf0c33df2c7f4a4
+    - name: sp_stomper_Sneeze_Hat_Frame_14
+      frameIndex: 14
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 47
+        height: 64
+      spriteId: 4cbcd9bdef866b4479db85cf6c971327
+    - name: sp_stomper_Sneeze_Hat_Frame_15
+      frameIndex: 15
+      additiveSortOrder: 0
+      cellRect:
+        x: 14
+        y: 0
+        width: 45
+        height: 60
+      spriteId: 2233f6fd800214d40af4b718b47b2cec
+    - name: sp_stomper_Sneeze_Hat_Frame_16
+      frameIndex: 16
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 47
+        height: 49
+      spriteId: cc3ae1cd64631034fa88aff376f0dad3
+    - name: sp_stomper_Sneeze_Hat_Frame_17
+      frameIndex: 17
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 45
+        height: 51
+      spriteId: e1e9b1c121cc66a46a21075c7fc27994
+    - name: sp_stomper_Sneeze_Hat_Frame_18
+      frameIndex: 18
+      additiveSortOrder: 0
+      cellRect:
+        x: 5
+        y: 0
+        width: 45
+        height: 42
+      spriteId: 958cc9bd007b0b54698f183b901d3a74
+    - name: sp_stomper_Sneeze_Hat_Frame_19
+      frameIndex: 19
+      additiveSortOrder: 0
+      cellRect:
+        x: 9
+        y: 0
+        width: 46
+        height: 51
+      spriteId: b3a462361daa50a4b92cd3adc0fb0886
+    - name: sp_stomper_Sneeze_Hat_Frame_20
+      frameIndex: 20
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: c95d0cab11c9a8a43a9639d7a9575882
+    - name: sp_stomper_Sneeze_Hat_Frame_21
+      frameIndex: 21
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 96e6ac4937b197445858499ebe735cbc
+    - name: sp_stomper_Sneeze_Hat_Frame_22
+      frameIndex: 22
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 9059544c1095e4445ac5cde1f502e938
+    - name: sp_stomper_Sneeze_Hat_Frame_23
+      frameIndex: 23
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: f13af68e12447e847ba269fef8e8f878
+    - name: sp_stomper_Sneeze_Hat_Frame_24
+      frameIndex: 24
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: fbef85f288d7a904cbabf64854d26c0e
+    - name: sp_stomper_Sneeze_Hat_Frame_25
+      frameIndex: 25
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: c4144ffc6ee4d514dbf7eafad58b2dc1
+    - name: sp_stomper_Sneeze_Hat_Frame_26
+      frameIndex: 26
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 07000e7f1fa0ec140b90776a6177e9e8
+    - name: sp_stomper_Sneeze_Hat_Frame_27
+      frameIndex: 27
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 11b6646761287a540b06f6a771e87765
+    - name: sp_stomper_Sneeze_Hat_Frame_28
+      frameIndex: 28
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 4458b9e7a984e6049a7fce1cf27862ad
+    - name: sp_stomper_Sneeze_Hat_Frame_29
+      frameIndex: 29
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: 6b050e37f7ad16e449aaf14a54adedbf
+    - name: sp_stomper_Sneeze_Hat_Frame_30
+      frameIndex: 30
+      additiveSortOrder: 0
+      cellRect:
+        x: 11
+        y: 0
+        width: 43
+        height: 54
+      spriteId: fe7feab34f0b3734e83f4d382c1a8dca
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  generatePhysicsShape: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 64, y: 64}

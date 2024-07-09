@@ -66,7 +66,6 @@ public class scr_Acceleration_Component : MonoBehaviour
             }
             else if(!ignorePlatforms)
             {   
-                Debug.Log("This is playing");
                 _currForce = 0;
                 entityAcceleration.y = 0f;
                 entityVelocity.y = 0f; 

@@ -76,15 +76,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 87e3bee2204344d40893094668a1c914, type: 2}
+  m_Sprite: {fileID: 2549720599717841670, guid: cc3f85471c3afc44ba21e8166252c8d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.29, y: 0.44}
+  m_Size: {x: 0.4, y: 0.59}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8569564625648751085
@@ -146,18 +146,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.24, y: 0.16}
+  m_Offset: {x: -0.015, y: 0.24}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.48275867, y: 0}
-    oldSize: {x: 0.29, y: 0.44}
-    newSize: {x: 0.29, y: 0.44}
+    pivot: {x: 0.55, y: 0}
+    oldSize: {x: 0.4, y: 0.59}
+    newSize: {x: 0.4, y: 0.59}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.12, y: 0.32}
+  m_Size: {x: 0.15, y: 0.43}
   m_EdgeRadius: 0
 --- !u!114 &8194295729106989578
 MonoBehaviour:
@@ -174,11 +174,20 @@ MonoBehaviour:
   currentEntityGameObject: {fileID: 0}
   currentRigidBody: {fileID: 0}
   currentCollider: {fileID: 0}
+  gameControllerScript: {fileID: 0}
+  movingHorizontal: 0
+  movingVertical: 0
+  animationComp: {fileID: 0}
+  airState: 0
+  characterState: 1
+  prevState: 0
   mass: 10
   velocity: {x: 0, y: 0, z: 0}
   MaxHealth: 0
   Health: 0
-  animationComp: {fileID: 0}
+  isDead: 0
+  spEffectList: []
+  dmgEffect: {fileID: 0}
   raycasterComp: {fileID: 0}
   accelComp: {fileID: 0}
   maxProg_X: 0
@@ -186,15 +195,22 @@ MonoBehaviour:
   maxProg_NegY: 0
   left: 0
   right: 0
-  movingHorizontal: 0
-  movingVertical: 0
+  abilityKey: 0
   prev_movingHorizontal: 0
   prev_movingVertical: 0
   MovementStrength_X: 0
   MovementStrength_Y: 0
   currProg_X: 0
   currProg_Y: 0
-  rayCast_groundHit: 0
+  raycast_groundHit: 0
+  didBonk: 0
+  bonkThreshold_X: 0.5
+  bonkThreshold_Y: 0.75
+  isPreppingHat: 0
+  releasingHat: 0
+  runningStateThreshold: 0.4
+  sprintingStateThreshold: 0.75
+  bonkEndThreshold: 0.15
 --- !u!1 &4204125900954828847
 GameObject:
   m_ObjectHideFlags: 0

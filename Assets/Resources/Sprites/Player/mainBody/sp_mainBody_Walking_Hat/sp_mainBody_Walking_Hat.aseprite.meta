@@ -123,16 +123,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: sp_mainBody_Walking_Hat_Frame_0
     originalName: 
-    pivot: {x: 0.49999997, y: 0}
+    pivot: {x: 0.44444445, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 88
-      y: 4
-      width: 32
-      height: 41
-    spriteID: ddf3a96e466127440ac15a0ac694d87a
+      x: 4
+      y: 74
+      width: 36
+      height: 61
+    spriteID: 290f4680e20841d4db6fc59c3f571798
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -140,19 +140,39 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 88, y: 4}
+    uvTransform: {x: 4, y: 74}
   - name: sp_mainBody_Walking_Hat_Frame_1
     originalName: 
-    pivot: {x: 0.4705882, y: 0}
+    pivot: {x: 0.47058824, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 50
+      y: 74
+      width: 34
+      height: 62
+    spriteID: e78c6f87237bc144da4eecf525bb766b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 50, y: 74}
+  - name: sp_mainBody_Walking_Hat_Frame_2
+    originalName: 
+    pivot: {x: 0.4473684, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 34
-      height: 44
-    spriteID: 2b646dc2c2ddfbc4985ef2af4616541c
+      width: 38
+      height: 62
+    spriteID: c7cfc4b0f4935e04b86c60ab8aaeb3d5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -161,18 +181,38 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: sp_mainBody_Walking_Hat_Frame_2
+  - name: sp_mainBody_Walking_Hat_Frame_3
     originalName: 
-    pivot: {x: 0.49999997, y: 0}
+    pivot: {x: 0.47058824, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 50
+      y: 144
+      width: 34
+      height: 62
+    spriteID: d881389fb01d175468bf208f2d7f43c5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 50, y: 144}
+  - name: sp_mainBody_Walking_Hat_Frame_4
+    originalName: 
+    pivot: {x: 0.44444445, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 56
-      width: 32
-      height: 41
-    spriteID: 9f7898c24d07df94d92b447f6db0e63d
+      y: 143
+      width: 36
+      height: 61
+    spriteID: 13b9529d189d7854e9c7223a4015678a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -180,19 +220,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 56}
-  - name: sp_mainBody_Walking_Hat_Frame_3
+    uvTransform: {x: 4, y: 143}
+  - name: sp_mainBody_Walking_Hat_Frame_5
     originalName: 
-    pivot: {x: 0.4705882, y: 0}
+    pivot: {x: 0.45714286, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 46
+      x: 50
       y: 4
-      width: 34
-      height: 44
-    spriteID: 3b1ab5970c8ab354ba949ee32b0670a6
+      width: 35
+      height: 62
+    spriteID: 556c465e85634fe4181a75c8b5d9f629
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -200,7 +240,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 46, y: 4}
+    uvTransform: {x: 50, y: 4}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -214,42 +254,60 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 8
+        x: 16
         y: 0
-        width: 32
-        height: 41
-      spriteId: ddf3a96e466127440ac15a0ac694d87a
+        width: 36
+        height: 61
+      spriteId: 290f4680e20841d4db6fc59c3f571798
     - name: sp_mainBody_Walking_Hat_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 8
+        x: 16
         y: 0
         width: 34
-        height: 44
-      spriteId: 2b646dc2c2ddfbc4985ef2af4616541c
+        height: 62
+      spriteId: e78c6f87237bc144da4eecf525bb766b
     - name: sp_mainBody_Walking_Hat_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 8
+        x: 15
         y: 0
-        width: 32
-        height: 41
-      spriteId: 9f7898c24d07df94d92b447f6db0e63d
+        width: 38
+        height: 62
+      spriteId: c7cfc4b0f4935e04b86c60ab8aaeb3d5
     - name: sp_mainBody_Walking_Hat_Frame_3
       frameIndex: 3
       additiveSortOrder: 0
       cellRect:
-        x: 8
+        x: 16
         y: 0
         width: 34
-        height: 44
-      spriteId: 3b1ab5970c8ab354ba949ee32b0670a6
+        height: 62
+      spriteId: d881389fb01d175468bf208f2d7f43c5
+    - name: sp_mainBody_Walking_Hat_Frame_4
+      frameIndex: 4
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 0
+        width: 36
+        height: 61
+      spriteId: 13b9529d189d7854e9c7223a4015678a
+    - name: sp_mainBody_Walking_Hat_Frame_5
+      frameIndex: 5
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 0
+        width: 35
+        height: 62
+      spriteId: 556c465e85634fe4181a75c8b5d9f629
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 48, y: 48}
+  canvasSize: {x: 64, y: 64}

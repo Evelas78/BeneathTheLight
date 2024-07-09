@@ -8,8 +8,11 @@ public class scr_PassThroughFloor : MonoBehaviour
     void Awake()
     {
         objectIDs = gameObject.AddComponent<IDScript>();
-        objectIDs.objectType = GLOBAL_CONSTANTS.objectType.isPlatform;
+        objectIDs.objectType = GLOBAL_CONSTANTS.objectType.isWall;
         objectIDs.damage_level = 0;
         objectIDs.hasEffectScript = false;
+        objectIDs.passThroughLeft = true;
+        objectIDs.passThroughRight = true;
+        objectIDs.passThroughUp = true;
     }
 }

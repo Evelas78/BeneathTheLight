@@ -18,8 +18,7 @@ public static class GLOBAL_CONSTANTS
         public const int isPlayer = 0;
         public const int isEnemy = 1;
         public const int isObject = 2;
-        public const int isSolid = 3;
-        public const int isPlatform = 4;
+        public const int isWall= 3;
     }
 
     public struct AirStates
@@ -31,14 +30,22 @@ public static class GLOBAL_CONSTANTS
 
     public struct CharacterStates
     {
-        public const int Walking = 0;
-        public const int Running = 1;
-        public const int Idle = 2;
-        public const int Jumping = 2;
-        public const int Hurt = 3;
-        public const int Bonk = 4;
-        public const int ActiveAbility = 5;
-        public const int Dead = 6;
+        public const int Idle = 0;
+
+        public const int Walking = 1;
+        public const int Running = 2;
+        public const int Sprinting = 3;
+        public const int Skidding = 4;
+
+        public const int Jumping = 10;
+        public const int FreeFalling1 = 11;
+        public const int FreeFalling2 = 12;
+
+        public const int ActiveAbility = 30;
+        
+        public const int Hurt = 20;
+        public const int Bonk = 21;
+        public const int Dead = 22;
     }
 }
 
