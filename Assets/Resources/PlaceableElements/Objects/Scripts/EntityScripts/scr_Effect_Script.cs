@@ -15,7 +15,7 @@ public abstract class scr_Effect_Script : MonoBehaviour
     //(this basically allows for easier logic when iframes, or something conflicts)
     public void Escape(GameObject _hitBy, int _effectType)
     {
-        scr_Basic_Entity currHitScript = _hitBy.GetComponent<scr_Basic_Entity>();
+        scr_BaseEntity_Main currHitScript = _hitBy.GetComponent<scr_BaseEntity_Main>();
         
         switch (_effectType)
         {   

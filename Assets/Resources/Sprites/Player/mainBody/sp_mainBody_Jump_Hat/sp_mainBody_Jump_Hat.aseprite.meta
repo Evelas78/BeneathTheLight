@@ -123,16 +123,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: sp_mainBody_Jump_Hat
     originalName: 
-    pivot: {x: 0.38636366, y: 0}
+    pivot: {x: 0.5151515, y: -0.0625}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 44
-      height: 55
-    spriteID: 18af178376ed7ba4dbe2a3cc5e8f1cc3
+      width: 33
+      height: 48
+    spriteID: 2fd694159363bc14ba472d66ecc75754
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -155,10 +155,10 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 15
-        y: 0
-        width: 44
-        height: 55
-      spriteId: 18af178376ed7ba4dbe2a3cc5e8f1cc3
+        y: 3
+        width: 33
+        height: 48
+      spriteId: 2fd694159363bc14ba472d66ecc75754
     linkedCells: []
     parentIndex: -1
   platformSettings: []

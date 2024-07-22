@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 public class scr_Raycasts_Main : MonoBehaviour
 {   
     public BoxCollider2D currCharCollider;
-    public float gameObjectScale;
     public UnityEngine.Vector2 colliderOffset;
     public UnityEngine.Vector2 colliderSize;
 
@@ -23,14 +22,9 @@ public class scr_Raycasts_Main : MonoBehaviour
     //Since we use ID's, we will default to main layer for everything that is "in-game". 
     //Could use binary if necessary for robustness but for now, its alright. 
     public int targetLayer = GLOBAL_CONSTANTS.Layers.main;
-    public float boxSize_regFactor, boxSize_arbFactor;
+    public const float boxSize_regFactor = 7/8f, boxSize_arbFactor = 1/16f;
     void Start()
     {
-        //we get x since every scale will ALWAYS be the same in x & y to preserve original sprite resolution.
-        gameObjectScale = currCharCollider.gameObject.transform.localScale.x;
-        
-        colliderOffset = currCharCollider.offset * gameObjectScale;
-        colliderSize = currCharCollider.size * gameObjectScale;
         //y is arbitrary since all that matters is seeing the bottom
         vert_boxCastSize = new UnityEngine.Vector2(colliderSize.x * boxSize_regFactor, colliderSize.y * boxSize_arbFactor);
         //And vice versa for X
@@ -58,8 +52,16 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.y - _yOffset, float.NegativeInfinity, 0f), //Distance we send the boxcast, using the velocity (where we'll end up) & the offset we use (make up for starting higher/lowerr)
             targetLayer //Layer we are trying to get casts from
         );
+
+
         
         /* 
+                
+        if(downHit.collider != null)
+        {
+            Debug.Log("dHit");
+        }
+
         // --- TESTING VARS -----
         debugVelocity = entityVelocity;
         debug_Offset = _yOffset;
@@ -76,7 +78,6 @@ public class scr_Raycasts_Main : MonoBehaviour
 
         //We change this position vector EACH TIME we switch types of casting
         UnityEngine.Vector2 positionVector = new UnityEngine.Vector2(currentColliderPosition.x + _xOffset, currentColliderPosition.y - _yOffset + colliderSize.y/2);
-        
         RaycastHit2D upHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
             vert_boxCastSize, //Precreated size (remember origin of this is in the center of the bottom of our sprite (due to pivot points) so we adjust it in the origin position by adding half our targetted y size)
@@ -96,13 +97,13 @@ public class scr_Raycasts_Main : MonoBehaviour
     }
     public RaycastHit2D rightRaycast(float _xOffset, float _yOffset, ref UnityEngine.Vector3 entityVelocity)
     {
-        currentColliderPosition = 
+        UnityEngine.Vector3 currentColliderPosition = 
         new UnityEngine.Vector3(currCharCollider.transform.position.x + colliderOffset.x, 
                                 currCharCollider.transform.position.y + colliderOffset.y, 
                                 currCharCollider.transform.position.z);
 
         //We change this position vector EACH TIME we switch types of casting
-        positionVector = new UnityEngine.Vector2(currentColliderPosition.x - _xOffset + colliderSize.x/2, currentColliderPosition.y + _yOffset);
+        UnityEngine.Vector3 positionVector = new UnityEngine.Vector2(currentColliderPosition.x - _xOffset + colliderSize.x/2, currentColliderPosition.y + _yOffset);
         
         RaycastHit2D rightHit = Physics2D.BoxCast(
             positionVector, //The origin of our collider + a small offset of half our y size to get it right above the feet
@@ -112,16 +113,15 @@ public class scr_Raycasts_Main : MonoBehaviour
             Math.Clamp(entityVelocity.x + _xOffset, 0f, Mathf.Infinity), //We add xOffset since itll always be slightly behind where we send out the check, and add velocity because we always want to check the direction we are going, clamp negative side, we'll never check on the inside like that
             targetLayer //Layer we are trying to get casts from
         );
-
-        if(rightHit.collider != null)
-        {
-            Debug.Log("RightHit");
-        }
+        //if(rightHit.collider != null)
+        //{
+        //    Debug.Log("RightHit");
+        //}
 
         // --- TESTING VARS -----
-        debugVelocity = entityVelocity;
-        debug_Offset = _xOffset;
-        debugHitCast = rightHit;
+        //debugVelocity = entityVelocity;
+        //debug_Offset = _xOffset;
+        //debugHitCast = rightHit;
         
         return rightHit;
     }
@@ -155,9 +155,8 @@ public class scr_Raycasts_Main : MonoBehaviour
     }
 
     //Universal script for landing on something, since all of the floors and entities can be reduced to a generalized system
-    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, float _currOffset, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType, bool _ignore)
-    {
-        
+    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, float _currOffset, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType, bool _ignore, GameObject _gameObject)
+    {  
         if(!_ignore)
         {
             float velocity_Clamp = 0;
@@ -187,8 +186,6 @@ public class scr_Raycasts_Main : MonoBehaviour
                     velocity_Clamp = (_hitTarget.collider.transform.position.x - (_hitTarget.collider.transform.localScale.x / 2)) - (_currColliderPosition.x + colliderSize.x/2);
                     velocity_Clamp = Math.Clamp(velocity_Clamp, 0f, Mathf.Infinity);
                     entityVelocity.x = velocity_Clamp;
-                    Debug.Log("ERMMMMM RIGHT???");
-
                 break;
 
                 case GLOBAL_CONSTANTS.Direction.left:
@@ -199,7 +196,7 @@ public class scr_Raycasts_Main : MonoBehaviour
                 break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + gameObject.name + "'s main script calls the raycast.touchObject with a valid hit type");
+                    throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + _gameObject.name + "'s main script calls the raycast.touchObject with a valid hit type");
             }
         }
         if(_hitTarget_ID.hasEffectScript)

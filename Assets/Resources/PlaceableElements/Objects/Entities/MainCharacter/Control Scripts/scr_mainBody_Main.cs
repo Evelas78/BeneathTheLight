@@ -6,38 +6,44 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class scr_mainBody_Main : scr_Basic_Entity
+public class scr_mainBody_Main : scr_BaseEntity_Main
 {
     [SerializeField] private scr_Raycasts_Main raycasterComp = null;
     [SerializeField] private scr_Acceleration_Component accelComp = null;
-
     public override void CharacterAwake()
     {
-        animationController = gameObject.AddComponent<scr_animController_mainBody>();
-
         airState = GLOBAL_CONSTANTS.AirStates.Grounded;
-
-        maxProg_X =  (4f / Time.fixedDeltaTime);
-        maxProg_PosY = (.35f / Time.fixedDeltaTime);
-        maxProg_NegY = (.75f / Time.fixedDeltaTime);
-        bufferTimeMax = (.4f /Time.fixedDeltaTime);
-        bufferTime = bufferTimeMax;
-
         objectIDs.objectType = GLOBAL_CONSTANTS.objectType.isPlayer;
 
+        animationControllerInitializer();
+        raycasterInitializer();
+        accelCompIntializer();
+        Debug.Log("This Runs");
+    }
+    public void animationControllerInitializer()
+    {
+        animationController = new scr_animController_mainBody();
+        animationController.objRenderer = gameObject.GetComponent<SpriteRenderer>();
+        animationController.initializeDictionary(gameObject, this);
+        animationController.spriteLoad(characterState);
+    }
+    public void raycasterInitializer()
+    {
         raycasterComp = gameObject.AddComponent<scr_Raycasts_Main>();
         raycasterComp.currCharCollider = currentCollider;
         raycasterComp.depthBasedCollision = true;
-
-        raycasterComp.boxSize_regFactor = 7/8f;
-        raycasterComp.boxSize_arbFactor = 1/16f;
-
-
-        //Origin of the boxCast will be relative to the position we give. So starting it at the Y (which is the bottom middle of the object)
+    
+        //Multiple by local scale so the actual size is correct
+        raycasterComp.colliderOffset = currentCollider.offset * currentCollider.gameObject.transform.localScale.x;
+        raycasterComp.colliderSize = currentCollider.size * currentCollider.gameObject.transform.localScale.x;
+    }
+    public void accelCompIntializer()
+    {
         accelComp = gameObject.AddComponent<scr_Acceleration_Component>();  
         accelComp.gFrictionApplies = true;
         accelComp.gravApplies = true;
     }
+    
     [SerializeField] private int prev_movingHorizontal = 0 ,prev_movingVertical = 0;
 
     private float maxStrength_X = 0.85f, minStrength_X = 0.25f;
@@ -59,7 +65,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
         right = Input.GetKey(KeyCode.D) ? 1:0 ;
         movingVertical = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.Space) ? 1:0 ;
         movingVertical = Input.GetKey(KeyCode.S) ? -1:movingVertical;
-        //Concise conditionals, finally found a good use for it to replace implicit boolean->int conversion from gml
+        //Concise conditionals, finally found a good use for it to replace implicit bool->int conversion from gml
         movingHorizontal =  right - left;
         //remember, right is increasing
         abilityKey = Input.GetKey(KeyCode.F) ? 1:0;
@@ -70,7 +76,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
 
     public float maxVelocity_X;
     //These are used in the y function to lerp between the maxVelocities it may have, using the yProgs
-    private float lowMaxVelocity_X = 0.75f, highMaxVelocity_X = 1.5f; 
+    private const float lowMaxVelocity_X = 0.75f, highMaxVelocity_X = 1.5f; 
 
     public override void CharacterFixedUpdate()
     {   
@@ -101,12 +107,12 @@ public class scr_mainBody_Main : scr_Basic_Entity
     //CurrProg is used to determine how fast the main char should be going, growing the longer the buttons are held
     [SerializeField]private float currProg_X = 0.0f;
     //When the prog finally hits this percentage from its max, then it starts slowing down
-    private float currProgSlowStart_X = 0.35f;
+    private const float currProgSlowStart_X = 0.35f;
     //Max Prog of X, the lower it is, the faster it grows
-    [SerializeField] private float maxProg_X;
+    [SerializeField] private const float maxProg_X = 4.0f;
 
     //These are used to determine how fast it grows when it starts slowing off
-    private static float progMultiplier_XFactor = 3, progMultiplier_XBase = MathF.E;
+    private const float progMultiplier_XFactor = 3, progMultiplier_XBase = MathF.E;
 
     public void XFunc()
     { 
@@ -133,7 +139,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
             }
 
             //How much it increases the currProg
-            currProg_X += _currProg_add_X;
+            currProg_X += _currProg_add_X * Time.deltaTime;
 
             //prevent currProg from going above max
             if(currProg_X > maxProg_X)
@@ -165,16 +171,17 @@ public class scr_mainBody_Main : scr_Basic_Entity
     //If above this threshold while jumping then switching to immediate falling, this also determines how much is conserved when switching from active jumping to active falling, rewarding quick enough switches
     private const float maxProg_PosY_conserveFactor = 0.65f;
     //How fast prog will decay when falling (meaning slower fall, but also slower max velocity)
-    private const float ProgDecay_Y = 9f;
+    //ProgChange pos is for jumping, neg is for active falling
+    private const float ProgDecay_Y = 9f, ProgChange_PosY = 1.0f, ProgChange_activeNegY = 1.0f;
 
     //These are determined in Awake using time.deltaTime. Basically, how much the prog should grow/shrink from as it is going in that direction
-    [SerializeField] private float maxProg_PosY, maxProg_NegY;
+    [SerializeField] private const float maxProg_PosY = 0.35f, maxProg_NegY = 0.75f;
 
     //Use these to lerp between to get how fast things fall, etc. Uses prog to grow to them as others do.
     private float maxStrength_PosY = 0.55f, minStrength_PosY = 0.25f;    
     private float maxStrength_NegY = 0.35f, minStrength_NegY = 0.15f;   
-    private float bufferTime;
-    private static float bufferTimeMax;
+    private const float bufferTimeMax = .4f, bufferDecayFactor = 1.0f;
+    private float bufferTime = bufferTimeMax;
     public void YFunc()
     {
         //if currrently jumping
@@ -187,7 +194,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
             MovementStrength_Y = Mathf.Sin(sin_factor) * movementStrength_Y_Mult;
             
             //Drops curr Prog then clamps it at 0, since it starts at max
-            currProg_Y -= 1f;
+            currProg_Y -= ProgChange_PosY * Time.deltaTime;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_PosY);
             
             //We go straight to falling if we were still holding down the button when its fall time. 
@@ -199,7 +206,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
         }
         else if (airState == GLOBAL_CONSTANTS.AirStates.Falling && movingVertical == -1)
         {
-            bufferTime--;
+            bufferTime -= bufferDecayFactor * Time.deltaTime;
             //If you pressed switch fast enough and currProg is still above a threshold, then your currProg can save into your fast fall, making X velocity max consistently larger.
             if(bufferTime > 0 && currProg_Y >= maxProg_PosY * maxProg_PosY_conserveFactor)
             {
@@ -210,14 +217,14 @@ public class scr_mainBody_Main : scr_Basic_Entity
             prev_movingVertical = movingVertical;
     
             //This grows into how fast you fall
-            currProg_Y += 1f;
+            currProg_Y += ProgChange_activeNegY * Time.deltaTime;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_NegY);
             MovementStrength_Y = Mathf.Lerp(minStrength_NegY, maxStrength_NegY, currProg_Y/maxProg_NegY);
         }
         else
         {  
             //Decays currProg_Y slowing down max Velocity for X and the fall speed
-            currProg_Y -= ProgDecay_Y;
+            currProg_Y -= ProgDecay_Y * Time.deltaTime;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_NegY);
             MovementStrength_Y = 0f; //Movement strength doesn't matter since we just let natural built in gravity apply.
         }
@@ -243,7 +250,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
                 case GLOBAL_CONSTANTS.objectType.isObject:
                 case GLOBAL_CONSTANTS.objectType.isWall:
                     bool shouldIgnore = (velocity.y >= 0) ? true : hitIDScript.passThroughDown; 
-                    raycasterComp.touchObject(downRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.down, shouldIgnore);
+                    raycasterComp.touchObject(downRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.down, shouldIgnore, gameObject);
                     raycast_groundHit = !shouldIgnore;
                     break;
                 case GLOBAL_CONSTANTS.objectType.isPlayer: //Means you hit the hat. 
@@ -286,7 +293,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(upRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.up, shouldIgnore);
+                    raycasterComp.touchObject(upRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.up, shouldIgnore, gameObject);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -322,7 +329,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(rightRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.right, shouldIgnore);
+                    raycasterComp.touchObject(rightRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.right, shouldIgnore, gameObject);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -358,7 +365,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(leftRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.left, hitIDScript.passThroughLeft);
+                    raycasterComp.touchObject(leftRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_CONSTANTS.Direction.left, hitIDScript.passThroughLeft, gameObject);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -368,7 +375,8 @@ public class scr_mainBody_Main : scr_Basic_Entity
     }
     
     [SerializeField] bool isPreppingHat = false, releasingHat = false;
-    int previousAbilityKey;
+    //We multiply our throwStrength by this so our magnitude doesnt make the throw insanely strong
+    public const float throwFactor = 0.25f;
     public void hatThrowLogic()
     {
         if(abilityKey == 1)
@@ -377,23 +385,24 @@ public class scr_mainBody_Main : scr_Basic_Entity
             {
                 isPreppingHat = true;
             }
-            else if(previousAbilityKey == 0)
-            {
-                releasingHat = true;
-                isPreppingHat = false;
-            }
         }
-        previousAbilityKey = abilityKey;
+        else if(abilityKey == 0 && isPreppingHat == true)
+        {
+            isPreppingHat = false;
+            releasingHat = true;
+        }
 
         Vector2 mosPosition = Input.mousePosition;
-        
+        Vector2 charCurrentPosition = new Vector2(currentRigidBody.transform.position.x, currentRigidBody.transform.position.y);
+        mosPosition = charCurrentPosition + mosPosition - new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+        Vector2 normalizedAngleVec = mosPosition / mosPosition.magnitude;
         if(isPreppingHat)
         {
-            //Logic to set up the animation plus giving the angle that the arm should be at 
             //Plus drawing the arrow too
         }
         else if(releasingHat)
         {
+            float throwStrength = mosPosition.magnitude * throwFactor;
             //Throw the hat at the angle, once the animation is done, we can hide our character/reset it,
             // depends on what we find to be better, then we have the hat run its script
         }
@@ -404,14 +413,16 @@ public class scr_mainBody_Main : scr_Basic_Entity
     
     //Stored maxYProg is the currProg depending on positive/negative, allowing us to calculate max velocity using lerps.
     private float storedMaxYProg;
+    //Allows for better fall state switching since we will always be slightly falling due to gravity but being picked back up due to our raycasts
+    private const float fallVelocityThreshold = -0.1f;
     public void handleAirState()
     {
         if(raycast_groundHit)
-        {
             airState = GLOBAL_CONSTANTS.AirStates.Grounded;
-        }
-    
-        //Logic for determining state whether grounded or in air/jumping
+        else if(characterState != GLOBAL_CONSTANTS.AirStates.activeAir && velocity.y < fallVelocityThreshold) //if not jumping AND falling fast enough (since the game cant exactly perfectly land and not fall at the same time, due to how pixels and our grav system works)
+            airState = GLOBAL_CONSTANTS.AirStates.Falling;
+
+        //Logic for specifically jumping. Checks first if you can jump and allows a jump, then works for exiting a jump, making sure youve jumped enough before leaving it.
         //if youre on the ground but want to jump, then the system will prime itself to put you at max jump strength, in the right aierrstate, and set the maxStoredY
         if(airState == GLOBAL_CONSTANTS.AirStates.Grounded && movingVertical == 1)
         {
@@ -434,6 +445,7 @@ public class scr_mainBody_Main : scr_Basic_Entity
 
     [SerializeField] float runningStateThreshold = 0.4f, sprintingStateThreshold = 0.75f;
     [SerializeField] float bonkEndThreshold = 0.15f;
+    [SerializeField] 
     public void determineActionState()
     {   //If currently bonked or has an active bonk then
         if(characterState == GLOBAL_CONSTANTS.CharacterStates.Bonk || didBonk)
@@ -481,11 +493,17 @@ public class scr_mainBody_Main : scr_Basic_Entity
             else
             {   
                 if(airState == GLOBAL_CONSTANTS.AirStates.activeAir)
-                    characterState = GLOBAL_CONSTANTS.CharacterStates.Jumping;
-                else if(Math.Abs(velocity.x) >= runningStateThreshold * maxVelocity_X)
-                    characterState = GLOBAL_CONSTANTS.CharacterStates.FreeFalling2;
-                else 
-                    characterState = GLOBAL_CONSTANTS.CharacterStates.FreeFalling1;
+                    if(Math.Abs(velocity.x) >= runningStateThreshold * maxVelocity_X)
+                        characterState = GLOBAL_CONSTANTS.CharacterStates.Jumping2;
+                    else
+                        characterState = GLOBAL_CONSTANTS.CharacterStates.Jumping1;
+                else if(characterState != GLOBAL_CONSTANTS.CharacterStates.FreeFalling1 || characterState != GLOBAL_CONSTANTS.CharacterStates.FreeFalling2)
+                {
+                    if(Math.Abs(velocity.x) >= runningStateThreshold * maxVelocity_X)
+                        characterState = GLOBAL_CONSTANTS.CharacterStates.FreeFalling2; //Moving fast enough
+                    else 
+                        characterState = GLOBAL_CONSTANTS.CharacterStates.FreeFalling1;
+                }
             }
 
         }
@@ -496,5 +514,6 @@ public class scr_mainBody_Main : scr_Basic_Entity
     }
 
     public float getMaxXVelocity() {return maxVelocity_X;}
+    public float getMaxYVelocity() {return posMaxVelocity_Y;}
 
 }

@@ -132,7 +132,7 @@ ScriptedImporter:
       y: 4
       width: 52
       height: 51
-    spriteID: b8f0d5b8a8198474e85eeef38f21c23d
+    spriteID: 869518dea23a69e4b8bf46a5a1def5c5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,7 +152,7 @@ ScriptedImporter:
       y: 4
       width: 59
       height: 55
-    spriteID: fa0c542f8663e3b46b0884f7969a8902
+    spriteID: fbd018fa2f2093846a0a490f2351ea50
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -178,7 +178,7 @@ ScriptedImporter:
         y: 1
         width: 52
         height: 51
-      spriteId: b8f0d5b8a8198474e85eeef38f21c23d
+      spriteId: 869518dea23a69e4b8bf46a5a1def5c5
     - name: sp_mainBody_moveJump_Hat_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
@@ -187,7 +187,7 @@ ScriptedImporter:
         y: 0
         width: 59
         height: 55
-      spriteId: fa0c542f8663e3b46b0884f7969a8902
+      spriteId: fbd018fa2f2093846a0a490f2351ea50
     linkedCells: []
     parentIndex: -1
   platformSettings: []
