@@ -1,0 +1,95 @@
+"filename", "language", "C#", "JSON", "Shaderlab", "comment", "blank", "total"
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\BoundBoxes\scr_passThroughFloor.cs", "C#", 17, 0, 0, 0, 2, 19
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\BoundBoxes\scr_solidWall.cs", "C#", 14, 0, 0, 0, 2, 16
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\Main(GLOBALS)\scr_entityController.cs", "C#", 107, 0, 0, 16, 16, 139
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\Main(GLOBALS)\scr_levelController.cs", "C#", 57, 0, 0, 5, 13, 75
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\scr_Button_Press.cs", "C#", 18, 0, 0, 1, 5, 24
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\scr_Camera.cs", "C#", 11, 0, 0, 2, 2, 15
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Controllers\scr_Menu.cs", "C#", 11, 0, 0, 1, 4, 16
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\GLOBAL_VARS.cs", "C#", 74, 0, 0, 0, 13, 87
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\IDScript.cs", "C#", 14, 0, 0, 2, 8, 24
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\Stomper\Control Scripts\scr_Goober_HitEffect.cs", "C#", 33, 0, 0, 0, 5, 38
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\Stomper\Control Scripts\scr_Goober_Main.cs", "C#", 12, 0, 0, 2, 5, 19
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_Run_Hat.cs", "C#", 22, 0, 0, 3, 11, 36
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_Skid_Hat.cs", "C#", 23, 0, 0, 1, 9, 33
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_Sprint_Hat.cs", "C#", 31, 0, 0, 2, 6, 39
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_Throw_Hat.cs", "C#", 21, 0, 0, 3, 9, 33
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_Walking_Hat.cs", "C#", 29, 0, 0, 4, 8, 41
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_fastMove_prepThrow_Hat.cs", "C#", 21, 0, 0, 3, 10, 34
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_prepThrow_Hat.cs", "C#", 15, 0, 0, 1, 4, 20
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainBody_slowMove_prepThrow_Hat.cs", "C#", 21, 0, 0, 3, 9, 33
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainbody_Fall_Hat.cs", "C#", 39, 0, 0, 1, 8, 48
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainbody_Idle_Hat.cs", "C#", 13, 0, 0, 1, 4, 18
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainbody_Jump_Hat.cs", "C#", 23, 0, 0, 1, 5, 29
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainbody_moveFall_Hat.cs", "C#", 39, 0, 0, 1, 8, 48
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Animations\scr_Anim_mainbody_moveJump_Hat.cs", "C#", 24, 0, 0, 1, 5, 30
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Control Scripts\scr_Anim_mainBody_template.cs", "C#", 12, 0, 0, 1, 3, 16
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Control Scripts\scr_animController_mainBody.cs", "C#", 71, 0, 0, 2, 26, 99
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainBody\Control Scripts\scr_mainBody_Main.cs", "C#", 411, 0, 0, 82, 61, 554
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainHat\Animations\scr_Anim_mainHat_Soar.cs", "C#", 22, 0, 0, 1, 5, 28
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainHat\Control Scripts\scr_Anim_mainHat_template.cs", "C#", 12, 0, 0, 1, 2, 15
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainHat\Control Scripts\scr_animController_mainHat.cs", "C#", 38, 0, 0, 2, 8, 48
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Entities\playerEntities\mainHat\Control Scripts\scr_mainHat_Main.cs", "C#", 59, 0, 0, 1, 7, 67
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\AnimationController\scr_animController.cs", "C#", 32, 0, 0, 7, 10, 49
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\AnimationController\scr_animations.cs", "C#", 97, 0, 0, 25, 18, 140
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_Acceleration_Component.cs", "C#", 63, 0, 0, 3, 13, 79
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_ArrowCreator_Component.cs", "C#", 107, 0, 0, 16, 19, 142
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_BaseEntity_Functions.cs", "C#", 12, 0, 0, 1, 3, 16
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_BaseEntity_Main.cs", "C#", 84, 0, 0, 17, 20, 121
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_Effect_Script.cs", "C#", 35, 0, 0, 3, 6, 44
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\Resources\PlaceableElements\Objects\Scripts\EntityScripts\scr_Raycast_Component.cs", "C#", 145, 0, 0, 50, 33, 228
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\Benchmark01.cs", "C#", 63, 0, 0, 29, 37, 129
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\Benchmark01_UGUI.cs", "C#", 59, 0, 0, 37, 40, 136
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\Benchmark02.cs", "C#", 65, 0, 0, 6, 27, 98
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\Benchmark03.cs", "C#", 73, 0, 0, 1, 19, 93
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\Benchmark04.cs", "C#", 41, 0, 0, 26, 19, 86
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\CameraController.cs", "C#", 198, 0, 0, 25, 69, 292
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\ChatController.cs", "C#", 31, 0, 0, 5, 16, 52
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\DropdownSample.cs", "C#", 15, 0, 0, 0, 5, 20
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\EnvMapAnimator.cs", "C#", 23, 0, 0, 4, 9, 36
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\ObjectSpin.cs", "C#", 50, 0, 0, 4, 15, 69
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\ShaderPropAnimator.cs", "C#", 33, 0, 0, 5, 14, 52
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\SimpleScript.cs", "C#", 24, 0, 0, 15, 20, 59
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\SkewTextExample.cs", "C#", 95, 0, 0, 18, 46, 159
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_DigitValidator.cs", "C#", 19, 0, 0, 5, 4, 28
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_ExampleScript_01.cs", "C#", 37, 0, 0, 9, 19, 65
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_FrameRateCounter.cs", "C#", 91, 0, 0, 11, 33, 135
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_PhoneNumberValidator.cs", "C#", 93, 0, 0, 7, 6, 106
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_TextEventCheck.cs", "C#", 56, 0, 0, 1, 17, 74
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_TextEventHandler.cs", "C#", 170, 0, 0, 31, 54, 255
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_TextInfoDebugTool.cs", "C#", 409, 0, 0, 97, 147, 653
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_TextSelector_A.cs", "C#", 100, 0, 0, 17, 41, 158
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_TextSelector_B.cs", "C#", 250, 0, 0, 191, 107, 548
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMP_UiFrameRateCounter.cs", "C#", 96, 0, 0, 1, 28, 125
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TMPro_InstructionOverlay.cs", "C#", 55, 0, 0, 6, 24, 85
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TeleType.cs", "C#", 40, 0, 0, 15, 28, 83
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TextConsoleSimulator.cs", "C#", 79, 0, 0, 13, 29, 121
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TextMeshProFloatingText.cs", "C#", 135, 0, 0, 32, 57, 224
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\TextMeshSpawner.cs", "C#", 46, 0, 0, 13, 21, 80
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\VertexColorCycler.cs", "C#", 48, 0, 0, 13, 24, 85
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\VertexJitter.cs", "C#", 105, 0, 0, 26, 44, 175
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\VertexShakeA.cs", "C#", 99, 0, 0, 23, 39, 161
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\VertexShakeB.cs", "C#", 112, 0, 0, 29, 44, 185
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\VertexZoom.cs", "C#", 112, 0, 0, 32, 48, 192
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Examples & Extras\Scripts\WarpTextExample.cs", "C#", 87, 0, 0, 15, 43, 145
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader", "Shaderlab", 0, 0, 109, 2, 33, 144
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader", "Shaderlab", 0, 0, 112, 3, 31, 146
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader", "Shaderlab", 0, 0, 109, 2, 33, 144
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader", "Shaderlab", 0, 0, 243, 4, 71, 318
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader", "Shaderlab", 0, 0, 241, 4, 66, 311
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader", "Shaderlab", 0, 0, 188, 10, 50, 248
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader", "Shaderlab", 0, 0, 183, 8, 50, 241
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader", "Shaderlab", 0, 0, 82, 4, 21, 107
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader", "Shaderlab", 0, 0, 183, 8, 50, 241
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader", "Shaderlab", 0, 0, 103, 8, 28, 139
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader", "Shaderlab", 0, 0, 122, 4, 33, 159
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_SDF.shader", "Shaderlab", 0, 0, 243, 4, 71, 318
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMP_Sprite.shader", "Shaderlab", 0, 0, 97, 0, 20, 117
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMPro.cginc", "Shaderlab", 0, 0, 63, 2, 20, 85
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc", "Shaderlab", 0, 0, 122, 2, 34, 158
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc", "Shaderlab", 0, 0, 62, 10, 14, 86
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc", "Shaderlab", 0, 0, 76, 7, 19, 102
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Assets\TextMesh Pro\Sprites\EmojiOne.json", "JSON", 0, 155, 0, 0, 2, 157
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Packages\manifest.json", "JSON", 0, 45, 0, 0, 1, 46
+"c:\Users\thele\OneDrive\Documents\GameDev\UnityProjects\BeneathTheLight\Packages\packages-lock.json", "JSON", 0, 465, 0, 0, 1, 466
+"Total", "-", 4898, 665, 2338, 1110, 2246, 11257

@@ -19,7 +19,7 @@ public class scr_Acceleration_Component : MonoBehaviour
     public bool gravApplies = false;
     public bool ignorePlatforms = false;
 
-    public void applyAcceleration_X(float _controlDirection, float _moveStrength, float _mass, 
+    public void applyAcceleration_X(float _controlDirection, float _entitySpeedMult, float _moveStrength, float _mass, 
     ref UnityEngine.Vector3 entityVelocity, bool _gTouch)
     { 
         float velocity_direc = Math.Sign(entityVelocity.x);
@@ -49,11 +49,11 @@ public class scr_Acceleration_Component : MonoBehaviour
         }
 
         entityAcceleration.x = _currForce / _mass;
-        entityVelocity.x += entityAcceleration.x;
+        entityVelocity.x += entityAcceleration.x * _entitySpeedMult;
 
         //Debug.Log("F "  + _currForce + " E_X_ACC" + entityAcceleration.x + " DIR" + _controlDirection);
     }
-    public void applyAcceleration_Y(float _controlDirection, float _moveStrength, bool _touchingGround, float _mass, 
+    public void applyAcceleration_Y(float _controlDirection, float _entitySpeedMult, float _moveStrength, bool _touchingGround, float _mass, 
     ref UnityEngine.Vector3 entityVelocity)
     {
         float _currForce = _controlDirection * _moveStrength;
@@ -73,6 +73,6 @@ public class scr_Acceleration_Component : MonoBehaviour
         }
 
         entityAcceleration.y = _currForce / _mass;
-        entityVelocity.y += entityAcceleration.y;
+        entityVelocity.y += entityAcceleration.y * _entitySpeedMult;
     }
 }

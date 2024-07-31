@@ -10,14 +10,14 @@ using UnityEngine.TextCore.Text;
 //We keep it monobehavior but DONT use any of the built in functions, only because we want to have the component ability
 public abstract class scr_BaseEntity_Main : MonoBehaviour
 {
-    public IDScript objectIDs;
+    public IDScript objectIDScript;
     public GameObject currentEntityGameObject; 
     public Rigidbody2D currentRigidBody;
     public BoxCollider2D currentCollider;
-    public scr_gameController gameControllerScript;
+    public scr_levelController levelControllerScript;
     
     //To pass to our animation controller & generalize logic for movement
-    protected UnityEngine.Vector2 movementDirectionsVec;
+
     [SerializeField] protected int movingHorizontal = 0,movingVertical = 0;
     [SerializeField] protected scr_animController animationController = null;
 
@@ -25,7 +25,7 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
     //Air state is the state whether youre grounded, actively doing something in the air (therefore not bounded by platforms) such as jumping, or falling regularly (in which no passing by platforms).
     [SerializeField]protected int airState;
     //Character state is the MAIN state engine of the game, this'll determine if you're currently in a major state, like walking, hurt, jumpign etc. This doesn't determine animation, essentially just logic, but can be used to determine what animation youre doing
-    [SerializeField]protected int characterState = GLOBAL_CONSTANTS.CharacterStates.Idle, prevState;
+    [SerializeField]protected int characterState = GLOBAL_VARS.CharacterStates.Idle, prevState;
 
     //Mass effects movement speeds and useful as a non magic number to tweak speeds of different things quickly. 
     //Lower generally means higher speeds as dictated by newton himself, trust I know him personally hes cool
@@ -46,62 +46,75 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
     //First effect grabbed will take priority and we can set up logic within each effect script for an escape if need be
     public List<scr_Effect_Script> spEffectList = new List<scr_Effect_Script>();
     public scr_Effect_Script dmgEffect = null;
+    
+    public static event GLOBAL_VARS.slowGameSignal entitySlowSignal;
+    public static event GLOBAL_VARS.entityActiveChangeSignal entityActivatedSignal;    
+    public static event GLOBAL_VARS.entityActiveChangeSignal entityDeactivatedSignal;    
 
-    //Create all necessary components and prime our movementDirectionsVec to prevent it from being made each time we want to change it.
-    public void entityAwake()
+    public void entityAwake(scr_levelController _levelController)
     {
-        objectIDs = gameObject.AddComponent<IDScript>();
-
         GameObject gameController = GameObject.Find("gameController");
-        gameControllerScript = gameController.GetComponent<scr_gameController>();
+        levelControllerScript = gameController.GetComponent<scr_levelController>();
 
         currentEntityGameObject = gameObject; 
         currentRigidBody = currentEntityGameObject.GetComponent<Rigidbody2D>();
         currentCollider = currentEntityGameObject.GetComponent<BoxCollider2D>();
 
-        movementDirectionsVec = new UnityEngine.Vector2(movingHorizontal,movingVertical);
         CharacterAwake();
     }
     public void entityStart()
     {
         CharacterStart();
     }
-    public void entityUpdate()
+    public void entityUpdate(float _entitySpeedMult)
     {
-        //Basically we just wanna update the movement directions for sprite passing, thats about it.
-        movementDirectionsVec.x = movingHorizontal;
-        movementDirectionsVec.y = movingVertical;
-
-        CharacterUpdate();   
+        CharacterUpdate(_entitySpeedMult);   
         if(characterState != prevState)
         {
             Debug.Log("Character State Change");
             animationController.spriteLoad(characterState);
             prevState = characterState;
         }
-        animationController.SpriteController();
+        
+        animationController.SpriteController(_entitySpeedMult);
     }
-    public void entityFixedUpdate() {
-        if(characterState != GLOBAL_CONSTANTS.CharacterStates.Dead)
-            CharacterFixedUpdate();
+    public void entityFixedUpdate(float _entitySpeedMult) {
+        if(characterState != GLOBAL_VARS.CharacterStates.Dead)
+        {
+            CharacterFixedUpdate(_entitySpeedMult);
+        }
         else
-            DeathUpdate();
+            DeathUpdate(_entitySpeedMult);
         //Updates the position at the very end of the frame
-        currentRigidBody.transform.position += velocity;
+        currentRigidBody.transform.position += velocity * _entitySpeedMult;
     }
 
     public UnityEngine.Vector3 getVelocity() { return velocity; }
     public int getCharacterState() { return characterState; }
     public int getAirState() { return airState; }
-    public UnityEngine.Vector2 getMovementDirection() { return movementDirectionsVec; }
     public abstract void CharacterStart();
     public abstract void CharacterAwake();
-    public abstract void CharacterFixedUpdate();
-    public abstract void CharacterUpdate();
+    public abstract void CharacterFixedUpdate(float _entitySpeedMult);
+    public abstract void CharacterUpdate(float _entitySpeedMult);
 
     //On death, thisll run 
-    public abstract void DeathUpdate();
+    public abstract void DeathUpdate(float _entitySpeedMult);
     public void triggerDeath() {isDead = true;}
+
+    protected void triggerEntitySlowEvent(float newSpeedPercent, float lerpFactor)
+    {
+            entitySlowSignal?.Invoke(newSpeedPercent, lerpFactor);
+    }
+    protected void activateObject(bool isMainChar, bool isNewCamTarget)
+    {
+        gameObject.SetActive(true);
+        entityActivatedSignal?.Invoke(gameObject, isMainChar, isNewCamTarget);
+    }
+    protected void deactivateObject(bool wasMainChar, bool wasCamTarget)
+    {
+        gameObject.SetActive(false);
+        entityDeactivatedSignal?.Invoke(gameObject, wasMainChar, wasCamTarget);
+    }
 
 
 }

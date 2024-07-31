@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 40cd2d798c710c34b97989cd7b3a4158
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - objectIDs: {instanceID: 0}
+  - currentEntityGameObject: {instanceID: 0}
+  - currentRigidBody: {instanceID: 0}
+  - currentCollider: {instanceID: 0}
+  - gameControllerScript: {instanceID: 0}
+  - dmgEffect: {instanceID: 0}
+  - raycasterComp: {instanceID: 0}
+  - accelComp: {instanceID: 0}
+  - arrowHeadTemplate: {fileID: 3731004591835116975, guid: f2d7c86f53a6e0848be4b482b8402184, type: 3}
+  - arrowSegmentTemplate: {fileID: 1482294491328580268, guid: 734e6dc43c1b05546813d80037dfc740, type: 3}
+  executionOrder: 30
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -12,11 +12,11 @@ Total : 70 files,  6337 codes, 934 comments, 1991 blanks, all 9262 lines
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
 | [Assets/Resources/PlaceableElements/Controllers/BoundBoxes/scr_PassThroughFloor.cs](/Assets/Resources/PlaceableElements/Controllers/BoundBoxes/scr_PassThroughFloor.cs) | C# | 14 | 0 | 2 | 16 |
-| [Assets/Resources/PlaceableElements/Controllers/Main(GLOBALS)/scr_gameController.cs](/Assets/Resources/PlaceableElements/Controllers/Main(GLOBALS)/scr_gameController.cs) | C# | 29 | 5 | 6 | 40 |
+| [Assets/Resources/PlaceableElements/Controllers/Main(GLOBALS)/scr_levelController.cs](/Assets/Resources/PlaceableElements/Controllers/Main(GLOBALS)/scr_levelController.cs) | C# | 29 | 5 | 6 | 40 |
 | [Assets/Resources/PlaceableElements/Controllers/scr_Button_Press.cs](/Assets/Resources/PlaceableElements/Controllers/scr_Button_Press.cs) | C# | 18 | 1 | 5 | 24 |
 | [Assets/Resources/PlaceableElements/Controllers/scr_Camera.cs](/Assets/Resources/PlaceableElements/Controllers/scr_Camera.cs) | C# | 11 | 2 | 2 | 15 |
 | [Assets/Resources/PlaceableElements/Controllers/scr_Menu.cs](/Assets/Resources/PlaceableElements/Controllers/scr_Menu.cs) | C# | 11 | 1 | 4 | 16 |
-| [Assets/Resources/PlaceableElements/GLOBAL_CONSTANTS.cs](/Assets/Resources/PlaceableElements/GLOBAL_CONSTANTS.cs) | C# | 34 | 0 | 5 | 39 |
+| [Assets/Resources/PlaceableElements/GLOBAL_VARS.cs](/Assets/Resources/PlaceableElements/GLOBAL_VARS.cs) | C# | 34 | 0 | 5 | 39 |
 | [Assets/Resources/PlaceableElements/IDScript.cs](/Assets/Resources/PlaceableElements/IDScript.cs) | C# | 7 | 2 | 3 | 12 |
 | [Assets/Resources/PlaceableElements/Objects/Entities/Goober/scr_Goober_HitEffect.cs](/Assets/Resources/PlaceableElements/Objects/Entities/Goober/scr_Goober_HitEffect.cs) | C# | 20 | 1 | 3 | 24 |
 | [Assets/Resources/PlaceableElements/Objects/Entities/Goober/scr_Goober_Main.cs](/Assets/Resources/PlaceableElements/Objects/Entities/Goober/scr_Goober_Main.cs) | C# | 12 | 2 | 5 | 19 |
@@ -28,7 +28,7 @@ Total : 70 files,  6337 codes, 934 comments, 1991 blanks, all 9262 lines
 | [Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Acceleration_Component.cs](/Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Acceleration_Component.cs) | C# | 64 | 3 | 13 | 80 |
 | [Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_BaseEntity_Main.cs](/Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_BaseEntity_Main.cs) | C# | 59 | 10 | 12 | 81 |
 | [Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Effect_Script.cs](/Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Effect_Script.cs) | C# | 36 | 3 | 7 | 46 |
-| [Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Raycasts_Main.cs](/Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Raycasts_Main.cs) | C# | 133 | 25 | 28 | 186 |
+| [Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Raycast_Component.cs](/Assets/Resources/PlaceableElements/Objects/Scripts/EntityScripts/scr_Raycast_Component.cs) | C# | 133 | 25 | 28 | 186 |
 | [Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs](/Assets/TextMesh%20Pro/Examples%20&%20Extras/Scripts/Benchmark01.cs) | C# | 63 | 29 | 37 | 129 |
 | [Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs](/Assets/TextMesh%20Pro/Examples%20&%20Extras/Scripts/Benchmark01_UGUI.cs) | C# | 59 | 37 | 40 | 136 |
 | [Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark02.cs](/Assets/TextMesh%20Pro/Examples%20&%20Extras/Scripts/Benchmark02.cs) | C# | 65 | 6 | 27 | 98 |

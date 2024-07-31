@@ -11,7 +11,7 @@ using UnityEngine;
 
 public abstract class scr_animations{
     //These two string variables are used to gather the frames from the directory theyre stored in
-    protected String assetPathName;
+    protected string assetPathName;
     //Total num of frames, calculated by our regex function
     protected int numOfFrames;
 
@@ -19,48 +19,33 @@ public abstract class scr_animations{
     [SerializeField] protected Sprite[] frameArray = null;
 
     //If the animation does not loop, or will not loop at this point, then it will go into this escape animation instead
-    [SerializeField] protected int escapeAnimationNum = GLOBAL_CONSTANTS.CharacterStates.Idle;
+    [SerializeField] protected int escapeAnimationNum = GLOBAL_VARS.CharacterStates.Idle;
     
     //currGameObject for target
-    public scr_animations(GameObject _currGameObject)
+    public scr_animations(string _gameObjectName, string _objectType)
     {   
-        loadPath(_currGameObject);
-
+        loadPath(_gameObjectName, _objectType);
     }
-    void loadPath(GameObject _currGameObject)
+    void loadPath(string _gameObjectName, string _objectType)
     {
         //All it does is setup the basic directory that this sprite will be found in
-        String objectName = _currGameObject.name;
+        string objectName = _gameObjectName;
+        string objectType = _objectType;
         
-        IDScript currObjIdScript = _currGameObject.GetComponent<IDScript>();
-        String spriteType;
-        switch(currObjIdScript.objectType)
-        {
-            case GLOBAL_CONSTANTS.objectType.isPlayer:
-                spriteType = "Player";
-                break;
-            case GLOBAL_CONSTANTS.objectType.isEnemy:
-                spriteType = "Enemy";
-                break;
-            default:
-                spriteType = "";
-                break;
-        }
-        
-        assetPathName = Application.dataPath + "/Resources/Sprites/" + spriteType + "/"  + objectName;
+        assetPathName = Application.dataPath + "/Resources/Sprites/" + objectType + "/"  + objectName;
         //Debug.Log(assetPathName);
     }
-    [SerializeField] private List<String> storedFilePaths;
+    [SerializeField] private List<string> storedFilePaths;
     [SerializeField] private Regex rgxAppDatPath = new Regex("^(" + Application.dataPath + "/Resources/)");
     [SerializeField] private Regex rgxAsset = new Regex("(.asset)$");
-    public void loadFrames(String animationName)
+    public void loadFrames(string animationName)
     {
         //Creates a path to count all the data paths. 
         assetPathName += ("/" + animationName + "/");
-        storedFilePaths = Directory.GetFiles(@assetPathName, "*.asset").ToList<String>();
+        storedFilePaths = Directory.GetFiles(@assetPathName, "*.asset").ToList<string>();
 
         numOfFrames = storedFilePaths.Count; //accounts for indexes
-        //Debug.Log(numOfFrames + " " + assetPathName);
+        Debug.Log(numOfFrames + " " + assetPathName);
         //Sort alphabetically/numerically, meaning each frame will be in the right order naturally, no real need to make our own sort program for this
         storedFilePaths.Sort();
         frameArray = new Sprite[numOfFrames];
@@ -68,20 +53,20 @@ public abstract class scr_animations{
         for (int i = 0; i < numOfFrames; i++)
         {
             //Use Reg Expression to trim off everyting unneeded for Resource.Load()
-            String storedString = rgxAppDatPath.Replace(storedFilePaths.ElementAt(i), "", 1);
-            storedString = rgxAsset.Replace(storedString, "", 1);
-            Debug.Log(storedString);
+            string storedstring = rgxAppDatPath.Replace(storedFilePaths.ElementAt(i), "", 1);
+            storedstring = rgxAsset.Replace(storedstring, "", 1);
+            //Debug.Log(storedstring);
 
             //When loading prepThrow specifically, the asset wouldnt be read as a sprite for whatever reason and there wasnt any difference with other sprite loads, so we use "as" operator instead of typecasting unfortunately.
             //Might end up more prone to mistakes than typecasting but I dont believe I found a worthwhile workaround
-            frameArray[i] = Resources.Load(storedString) as Sprite;
+            frameArray[i] = Resources.Load(storedstring) as Sprite;
             
             //Debug.Log(frameArray[i]);
         }           
     }
 
     //The logic behind each animation, this can pick and choose functions below to customize them almost modularly.
-    public abstract bool animationScript(SpriteRenderer _currSpriteRender, scr_animController _currAnimController, ref float currFrameProg, ref int currFrameNum, ref int currLoopCount);
+    public abstract bool animationScript(SpriteRenderer _currSpriteRender, scr_animController _currAnimController, ref float currFrameProg, ref int currFrameNum, ref int currLoopCount, float _entitySpeedMult);
     public Sprite returnFrame(int currFrameNum)
     {
         return frameArray[currFrameNum];
@@ -98,13 +83,13 @@ public abstract class scr_animations{
     //Universal function used to progress animations and allow for loops if need be. 
     //Isn't always necessary, especially for animations that have only one frame, or has its own specific way of functioning
     //currAnim is passed to debug
-    public static bool progressAnim(scr_animations currAnim, scr_animController _currAnimController, int _numOfFrames, int _escapeAnimNum, ref float currFrameProg, ref int currFrameNum, ref int currLoopCount, float _currFrameLength = -1, int loopStartFrame = -1, int loopEndFrame = -1, bool partWillLoop = false)
+    public static bool progressAnim(scr_animations currAnim, scr_animController _currAnimController, int _numOfFrames, int _escapeAnimNum, float _entitySpeedMult, ref float currFrameProg, ref int currFrameNum, ref int currLoopCount, float _currFrameLength = -1, int loopStartFrame = -1, int loopEndFrame = -1, bool partWillLoop = false)
     {   
         if(_currFrameLength == -1)
         {
             throw new Exception("Big currFrameLength not provided, impossible to progress animation");
         }
-        currFrameProg += 1 * Time.deltaTime; //1 times delta time to get the amount of frames per second. 
+        currFrameProg += 1 * Time.deltaTime * _entitySpeedMult; //1 times delta time to get the amount of frames per second. 
         if(currFrameProg >= _currFrameLength)
         {
             currFrameProg = 0;

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class scr_solidFloor : MonoBehaviour
 {
-    public IDScript objectIDs;
-    void Awake()
+    public static IDScript objectIDs;
+    public static bool createdIDScript = false;
+    public void Awake()
     {
-        objectIDs = gameObject.AddComponent<IDScript>();
-        objectIDs.objectType = GLOBAL_CONSTANTS.objectType.isWall;
-        objectIDs.damage_level = 0;
-        objectIDs.hasEffectScript = false;
+        if(!createdIDScript)
+        {
+            objectIDs = gameObject.AddComponent<IDScript>();
+            objectIDs.ObjectType = GLOBAL_VARS.ObjectType.isWall;
+            objectIDs.damage_level = 0;
+            objectIDs.hasEffectScript = false;
+        }
     }
+  
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1745460927100009786}
   - component: {fileID: 6123463011857016745}
   - component: {fileID: 2371510681717097004}
-  - component: {fileID: 8645440302788997407}
+  - component: {fileID: 3118208093422303609}
   m_Layer: 7
   m_Name: PassThroughBottomFloor
   m_TagString: Landable
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8645440302788997407
+--- !u!114 &3118208093422303609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,4 +143,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a460849e1733c24f994aeca47eee428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIDs: {fileID: 0}
