@@ -45,7 +45,7 @@ public abstract class scr_animations{
         storedFilePaths = Directory.GetFiles(@assetPathName, "*.asset").ToList<string>();
 
         numOfFrames = storedFilePaths.Count; //accounts for indexes
-        Debug.Log(numOfFrames + " " + assetPathName);
+        //Debug.Log(numOfFrames + " " + assetPathName);
         //Sort alphabetically/numerically, meaning each frame will be in the right order naturally, no real need to make our own sort program for this
         storedFilePaths.Sort();
         frameArray = new Sprite[numOfFrames];
@@ -97,13 +97,13 @@ public abstract class scr_animations{
 
             if(currFrameNum > loopEndFrame && partWillLoop) //Check if the currFrameNum has surpassed the current loop threshold, and if it does, check if it desires to loop
             {
-                Debug.Log("Starting Loop");
+                //Debug.Log("Starting Loop");
                 currFrameNum = loopStartFrame;
                 return false;
             }
             else if(currFrameNum == _numOfFrames) //In the case where it doesn't want to loop (as the loopEndFrame should match the final frame, check if it has hit the true total frames to then go into its escape)
             {
-                Debug.Log("Running escape anim " + currAnim + " totFrames: " + _numOfFrames + " esc num: " +  _escapeAnimNum);
+                //Debug.Log("Running escape anim " + currAnim + " totFrames: " + _numOfFrames + " esc num: " +  _escapeAnimNum);
                 _currAnimController.spriteLoad(_escapeAnimNum);
                 //New animation loaded, we finish it off by running this, meaning we gotta start running that one this frame
                 return true;

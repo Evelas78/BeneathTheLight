@@ -7,14 +7,16 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
+using Vector2 = UnityEngine.Vector2;
+
+
 //We keep it monobehavior but DONT use any of the built in functions, only because we want to have the component ability
-public abstract class scr_BaseEntity_Main : MonoBehaviour
+public abstract class scr_BaseEntity_Main : scr_BaseObject
 {
-    public IDScript objectIDScript;
     public GameObject currentEntityGameObject; 
     public Rigidbody2D currentRigidBody;
     public BoxCollider2D currentCollider;
-    public scr_levelController levelControllerScript;
+    public scr_levelController levelController;
     
     //To pass to our animation controller & generalize logic for movement
 
@@ -43,7 +45,8 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
     //Used for when you get hit by something an effect needs to play, 
     //is a list due to the fact multiple effects can happen at once
     //lets say when you hit an enemy and also a boost pad or something
-    //First effect grabbed will take priority and we can set up logic within each effect script for an escape if need be
+    //First effect grabbed will take priority and we can set up logic within each effect script 
+    //for an escape if need be
     public List<scr_Effect_Script> spEffectList = new List<scr_Effect_Script>();
     public scr_Effect_Script dmgEffect = null;
     
@@ -51,10 +54,13 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
     public static event GLOBAL_VARS.entityActiveChangeSignal entityActivatedSignal;    
     public static event GLOBAL_VARS.entityActiveChangeSignal entityDeactivatedSignal;    
 
+    //Will always be setup, if it affects the scene, do NOT include it here. Only exceptions are signal 
+    //pulling/activating in certain cases. 
+    //That and priming other objects such as arrow segments
     public void entityAwake(scr_levelController _levelController)
     {
         GameObject gameController = GameObject.Find("gameController");
-        levelControllerScript = gameController.GetComponent<scr_levelController>();
+        levelController = gameController.GetComponent<scr_levelController>();
 
         currentEntityGameObject = gameObject; 
         currentRigidBody = currentEntityGameObject.GetComponent<Rigidbody2D>();
@@ -62,6 +68,8 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
 
         CharacterAwake();
     }
+
+    //This is for AFTER level is primed
     public void entityStart()
     {
         CharacterStart();
@@ -71,7 +79,7 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
         CharacterUpdate(_entitySpeedMult);   
         if(characterState != prevState)
         {
-            Debug.Log("Character State Change");
+            //Debug.Log("Character State Change");
             animationController.spriteLoad(characterState);
             prevState = characterState;
         }
@@ -84,7 +92,7 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
             CharacterFixedUpdate(_entitySpeedMult);
         }
         else
-            DeathUpdate(_entitySpeedMult);
+            CharacterDeathUpdate(_entitySpeedMult);
         //Updates the position at the very end of the frame
         currentRigidBody.transform.position += velocity * _entitySpeedMult;
     }
@@ -98,21 +106,21 @@ public abstract class scr_BaseEntity_Main : MonoBehaviour
     public abstract void CharacterUpdate(float _entitySpeedMult);
 
     //On death, thisll run 
-    public abstract void DeathUpdate(float _entitySpeedMult);
+    public abstract void CharacterDeathUpdate(float _entitySpeedMult);
     public void triggerDeath() {isDead = true;}
 
     protected void triggerEntitySlowEvent(float newSpeedPercent, float lerpFactor)
     {
-            entitySlowSignal?.Invoke(newSpeedPercent, lerpFactor);
+        entitySlowSignal?.Invoke(newSpeedPercent, lerpFactor);
     }
     protected void activateObject(bool isMainChar, bool isNewCamTarget)
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         entityActivatedSignal?.Invoke(gameObject, isMainChar, isNewCamTarget);
     }
     protected void deactivateObject(bool wasMainChar, bool wasCamTarget)
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         entityDeactivatedSignal?.Invoke(gameObject, wasMainChar, wasCamTarget);
     }
 

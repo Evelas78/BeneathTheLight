@@ -20,7 +20,7 @@ public abstract class scr_animController
     //thisll be called everytime we want to play a new animation/reset
     public void spriteLoad(scr_animations _targetAnim)
     {
-        Debug.Log("We loaded new Sprite" + _targetAnim);
+        //Debug.Log("We loaded new Sprite" + _targetAnim);
         //Check if previous state is the same, else we wanna flush out the previous states data
         if(currAnim != _targetAnim && currAnim != null)
         {

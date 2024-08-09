@@ -75,7 +75,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -88,7 +88,7 @@ ScriptedImporter:
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
-    defaultPivotAlignment: 7
+    defaultPivotAlignment: 0
     customPivotPosition: {x: 0.5, y: 0.5}
     mosaicPadding: 4
     spritePadding: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 0
+  platformSettingsDirtyTick: 638582418653953971
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,16 +123,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: sp_mainHat_arrowHead_Reg_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.5862069}
+    pivot: {x: 0.39130434, y: 0.516129}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 29
-    spriteID: 07d19ffe8c4c2294d8acc9ef98c67c69
+      width: 46
+      height: 31
+    spriteID: d80626e359a03004f8725a8dbd00e536
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,16 +143,16 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: sp_mainHat_arrowHead_Reg_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.5862069}
+    pivot: {x: 0.39130434, y: 0.516129}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 41
-      width: 32
-      height: 29
-    spriteID: c9de08c5f95c4044ca6490a87dbbc527
+      y: 43
+      width: 46
+      height: 31
+    spriteID: 930307054b086f54fb0d002d3fcbb302
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -160,19 +160,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 41}
+    uvTransform: {x: 4, y: 43}
   - name: sp_mainHat_arrowHead_Reg_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.5862069}
+    pivot: {x: 0.39130434, y: 0.516129}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 78
-      width: 32
-      height: 29
-    spriteID: 937ce5cbd7f2dce4f9f2d14179527a06
+      y: 82
+      width: 46
+      height: 31
+    spriteID: 35b9b1dadd1659b41b5ca677f2935dae
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -180,7 +180,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 78}
+    uvTransform: {x: 4, y: 82}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -194,32 +194,80 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 17
-        width: 32
-        height: 29
-      spriteId: 07d19ffe8c4c2294d8acc9ef98c67c69
+        x: 14
+        y: 16
+        width: 46
+        height: 31
+      spriteId: d80626e359a03004f8725a8dbd00e536
     - name: sp_mainHat_arrowHead_Reg_Frame_1
       frameIndex: 1
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 17
-        width: 32
-        height: 29
-      spriteId: c9de08c5f95c4044ca6490a87dbbc527
+        x: 14
+        y: 16
+        width: 46
+        height: 31
+      spriteId: 930307054b086f54fb0d002d3fcbb302
     - name: sp_mainHat_arrowHead_Reg_Frame_2
       frameIndex: 2
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 17
-        width: 32
-        height: 29
-      spriteId: 937ce5cbd7f2dce4f9f2d14179527a06
+        x: 14
+        y: 16
+        width: 46
+        height: 31
+      spriteId: 35b9b1dadd1659b41b5ca677f2935dae
     linkedCells: []
     parentIndex: -1
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 

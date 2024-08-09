@@ -14,7 +14,7 @@ public class scr_animController_mainHat : scr_animController
         if(!dictionaryMade)
         {
             //LOOK INTO SCRIPTABLE OBJECTS THOUGH (nvm, this is for future reading, this is good for setting templates of stuff, but not much else. No need to replace anything)
-            scr_animations newAnim = new scr_Anim_mainBody_Idle_Hat(_gameObject.name, _objectType);
+            scr_animations newAnim = new scr_Anim_mainHat_Spin(_gameObject.name, _objectType);
             newAnim.convertToSpecificScript(_currEntityScript);
             animationDictionary.Add(GLOBAL_VARS.CharacterStates.FreeFalling1, newAnim);
         }

@@ -1,5 +1,8 @@
 using System;
+using System.Numerics;
 using UnityEngine;
+
+using Vector2 = UnityEngine.Vector2;
 
 
 public class scr_mainBody_Main : scr_BaseEntity_Main
@@ -9,12 +12,16 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     [SerializeField] private scr_ArrowCreator_Component arrowComp = null;
     
     public static IDScript mainBodyIDScript;
+    public SpriteRenderer currRenderer;
+    public Vector2 colliderOffset;
+    public Vector2 orthographicHalf;
+    [SerializeField] private GameObject obj_mainHat;
 
     public override void CharacterAwake()
     {
-        if(mainBodyIDScript != null)
+        if(mainBodyIDScript == null)
         {
-            mainBodyIDScript = gameObject.AddComponent<IDScript>();
+            mainBodyIDScript = new IDScript();
             mainBodyIDScript.ObjectType = GLOBAL_VARS.ObjectType.isPlayer;
         }
         objectIDScript = mainBodyIDScript;
@@ -25,7 +32,12 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         raycasterInitializer();
         accelCompInitializer();
         arrowCompInitializer();
-        Debug.Log("This Runs");
+
+        currRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        colliderOffset = currentCollider.offset;
+
+        mass = 10f;
     }
     public static string objectType = "Player";
     public void animationControllerInitializer()
@@ -45,6 +57,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         //Multiple by local scale so the actual size is correct
         raycasterComp.colliderOffset = currentCollider.offset * currentCollider.gameObject.transform.localScale.x;
         raycasterComp.colliderSize = currentCollider.size * currentCollider.gameObject.transform.localScale.x;
+        raycasterComp.InstantiateRaycastComp();
     }
     public void accelCompInitializer()
     {
@@ -59,7 +72,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     public void arrowCompInitializer()
     {
         arrowComp = gameObject.AddComponent<scr_ArrowCreator_Component>();
-        arrowComp.instantiateComponent(maxArrowSegments, arrowSegmentTemplate, arrowHeadTemplate, levelControllerScript);
+        arrowComp.instantiateComponent(maxArrowSegments, arrowSegmentTemplate, arrowHeadTemplate, levelController);
     }
     [SerializeField] private int prev_movingHorizontal = 0 ,prev_movingVertical = 0;
 
@@ -73,10 +86,12 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         storedMaxYProg = maxProg_PosY;
         MovementStrength_X = minStrength_X;
         MovementStrength_Y = 0f;
+
+        orthographicHalf = levelController.cameraController.orthographicHalf;
     }
 
     [SerializeField] private int left,right,abilityKey;
-    public override void CharacterUpdate(float _entitySpeedMult)
+    public override void CharacterUpdate(float _entityGameSpeed)
     {
         left = Input.GetKey(KeyCode.A) ? 1:0 ;
         right = Input.GetKey(KeyCode.D) ? 1:0 ;
@@ -95,14 +110,14 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     //These are used in the y function to lerp between the maxVelocities it may have, using the yProgs
     private const float lowMaxVelocity_X = 0.75f, highMaxVelocity_X = 1.5f; 
 
-    public override void CharacterFixedUpdate(float _entitySpeedMult)
+    public override void CharacterFixedUpdate(float _entityGameSpeed)
     {   
         handleAirState();
         //Applies acceleration based on how long you are holding the left and right
-        XFunc(_entitySpeedMult);
+        XFunc(_entityGameSpeed);
 
         //Applies acceleration for the Y based on how much youre holding it
-        YFunc(_entitySpeedMult);
+        YFunc(_entityGameSpeed);
         //Check Y Func, but basically, your max prog stored + curr Prog changes how fast your max X Velocity is
         //Remember, the boost of velocity when falling is perpetrated by the fact that its prog is maxprog is much lower than the jumping one and currProg is naturally 0 
         maxVelocity_X= Mathf.Lerp(lowMaxVelocity_X, highMaxVelocity_X, currProg_Y/storedMaxYProg);
@@ -111,10 +126,10 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         velocity.x = Math.Clamp(velocity.x, -maxVelocity_X, maxVelocity_X);
         velocity.y = Mathf.Clamp(velocity.y, negMaxVelocity_Y, posMaxVelocity_Y);
         
-        raycastDownFunction(0, raycast_yOffset, _entitySpeedMult);
-        raycastRightFunction(raycast_xOffset, 0, _entitySpeedMult);
-        raycastLeftFunction(raycast_xOffset, 0, _entitySpeedMult);
-        raycastUpFunction(0, raycast_yOffset, _entitySpeedMult);
+        raycastDownFunction(0, raycast_yOffset, _entityGameSpeed);
+        raycastRightFunction(raycast_xOffset, 0, _entityGameSpeed);
+        raycastLeftFunction(raycast_xOffset, 0, _entityGameSpeed);
+        raycastUpFunction(0, raycast_yOffset, _entityGameSpeed);
 
         hatThrowLogic();
 
@@ -133,7 +148,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     //These are used to determine how fast it grows when it starts slowing off
     private const float progMultiplier_XFactor = 3, progMultiplier_XBase = MathF.E;
 
-    public void XFunc(float _entitySpeedMult)
+    void XFunc(float _entityGameSpeed)
     { 
         //Remember, this all determines MOVEMENT STRENGTH, not anything else. 
 
@@ -158,7 +173,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             }
 
             //How much it increases the currProg
-            currProg_X += _currProg_add_X * Time.deltaTime * _entitySpeedMult;
+            currProg_X += _currProg_add_X * Time.deltaTime * _entityGameSpeed;
 
             //prevent currProg from going above max
             if(currProg_X > maxProg_X)
@@ -179,7 +194,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         MovementStrength_X *= airChange_XFactor;
 
         //Apply the acceleration with the raycastgroundhit to check if friction is strong or not
-        accelComp.applyAcceleration_X(movingHorizontal, _entitySpeedMult, MovementStrength_X, mass, ref velocity, raycast_groundHit);
+        accelComp.applyAcceleration_X(movingHorizontal, _entityGameSpeed, MovementStrength_X, mass, ref velocity, raycast_groundHit);
     }
 
     //Strength at which force is applied for Y acceleration, determined by prog and its specific type
@@ -199,9 +214,10 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     //Use these to lerp between to get how fast things fall, etc. Uses prog to grow to them as others do.
     private float maxStrength_PosY = 0.55f, minStrength_PosY = 0.25f;    
     private float maxStrength_NegY = 0.35f, minStrength_NegY = 0.15f;   
+    //Use buffer time to give a lil buffer that allows you to switch and gain speed when falling
     private const float bufferTimeMax = .4f, bufferDecayFactor = 1.0f;
     private float bufferTime = bufferTimeMax;
-    public void YFunc(float _entitySpeedMult)
+    void YFunc(float _entityGameSpeed)
     {
         //if currrently jumping
         if(airState == GLOBAL_VARS.AirStates.activeAir)
@@ -213,7 +229,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             MovementStrength_Y = Mathf.Sin(sin_factor) * movementStrength_Y_Mult;
             
             //Drops curr Prog then clamps it at 0, since it starts at max
-            currProg_Y -= ProgChange_PosY * Time.deltaTime * _entitySpeedMult;
+            currProg_Y -= ProgChange_PosY * Time.deltaTime * _entityGameSpeed;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_PosY);
             
             //We go straight to falling if we were still holding down the button when its fall time. 
@@ -225,7 +241,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         }
         else if (airState == GLOBAL_VARS.AirStates.Falling && movingVertical == -1)
         {
-            bufferTime -= bufferDecayFactor * Time.deltaTime * _entitySpeedMult;
+            bufferTime -= bufferDecayFactor * Time.deltaTime * _entityGameSpeed;
             //If you pressed switch fast enough and currProg is still above a threshold, then your currProg can save into your fast fall, making X velocity max consistently larger.
             if(bufferTime > 0 && currProg_Y >= maxProg_PosY * maxProg_PosY_conserveFactor)
             {
@@ -236,31 +252,33 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             prev_movingVertical = movingVertical;
     
             //This grows into how fast you fall
-            currProg_Y += ProgChange_activeNegY * Time.deltaTime * _entitySpeedMult;
+            currProg_Y += ProgChange_activeNegY * Time.deltaTime * _entityGameSpeed;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_NegY);
             MovementStrength_Y = Mathf.Lerp(minStrength_NegY, maxStrength_NegY, currProg_Y/maxProg_NegY);
         }
         else
         {  
             //Decays currProg_Y slowing down max Velocity for X and the fall speed
-            currProg_Y -= ProgDecay_Y * Time.deltaTime * _entitySpeedMult;
+            currProg_Y -= ProgDecay_Y * Time.deltaTime * _entityGameSpeed;
             currProg_Y = Math.Clamp(currProg_Y, 0f, maxProg_NegY);
             MovementStrength_Y = 0f; //Movement strength doesn't matter since we just let natural built in gravity apply.
         }
         
-        accelComp.applyAcceleration_Y(movingVertical, _entitySpeedMult, MovementStrength_Y, raycast_groundHit, mass, ref velocity);
+        accelComp.applyAcceleration_Y(movingVertical, _entityGameSpeed, MovementStrength_Y, raycast_groundHit, mass, ref velocity, false
+        );
     }
     [SerializeField] private bool raycast_groundHit = false, didBonk = false;
     [SerializeField] private float bonkThreshold_X = 0.5f, bonkThreshold_Y = 0.75f;
-    public void raycastDownFunction(float _xOffset, float _yOffset, float _entitySpeedMult)
+    void raycastDownFunction(float _xOffset, float _yOffset, float _entityGameSpeed)
     {
-        RaycastHit2D downRaycast = raycasterComp.downRaycast(_xOffset, _yOffset, ref velocity, _entitySpeedMult);
+        RaycastHit2D downRaycast = raycasterComp.downRaycast(_xOffset, _yOffset, ref velocity, _entityGameSpeed);
         if(downRaycast.collider != null)
         {
-            //Debug.Log("Found something (DOWN)" + downRaycast.collider.gameObject.name);
+            Debug.Log(gameObject + " Found something (DOWN)" + downRaycast.collider.gameObject.name);
 
             GameObject hitObject = downRaycast.collider.gameObject;
-            IDScript hitIDScript = hitObject.GetComponent<IDScript>();
+            scr_BaseObject hitMainScript = hitObject.GetComponent<scr_BaseObject>();
+            IDScript hitIDScript = hitMainScript.objectIDScript;
 
             int targetType = hitIDScript.ObjectType;
             switch(targetType)
@@ -269,7 +287,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
                 case GLOBAL_VARS.ObjectType.isObject:
                 case GLOBAL_VARS.ObjectType.isWall:
                     bool shouldIgnore = (velocity.y >= 0) ? true : hitIDScript.passThroughDown; 
-                    raycasterComp.touchObject(downRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_VARS.Direction.down, shouldIgnore, gameObject);
+                    raycasterComp.touchObject(downRaycast, hitObject, hitIDScript, ref velocity, gameObject, GLOBAL_VARS.Direction.down, shouldIgnore);
                     raycast_groundHit = !shouldIgnore;
                     break;
                 case GLOBAL_VARS.ObjectType.isPlayer: //Means you hit the hat. 
@@ -284,15 +302,16 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             raycast_groundHit = false;
         }
     }
-    public void raycastUpFunction(float _xOffset, float _yOffset, float _entitySpeedMult)
+    void raycastUpFunction(float _xOffset, float _yOffset, float _entityGameSpeed)
     {
-        RaycastHit2D upRaycast = raycasterComp.upRaycast(_xOffset, _yOffset, ref velocity, _entitySpeedMult);
+        RaycastHit2D upRaycast = raycasterComp.upRaycast(_xOffset, _yOffset, ref velocity, _entityGameSpeed);
         if(upRaycast.collider != null)
         {
             //Debug.Log("Found something (UP)" + upRaycast.collider.gameObject.name);
 
             GameObject hitObject = upRaycast.collider.gameObject;
-            IDScript hitIDScript = hitObject.GetComponent<IDScript>();
+            scr_BaseObject hitMainScript = hitObject.GetComponent<scr_BaseObject>();
+            IDScript hitIDScript = hitMainScript.objectIDScript;
 
             int targetType = hitIDScript.ObjectType;
             switch(targetType)
@@ -312,7 +331,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(upRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_VARS.Direction.up, shouldIgnore, gameObject);
+                    raycasterComp.touchObject(upRaycast, hitObject, hitIDScript, ref velocity, gameObject, GLOBAL_VARS.Direction.up, shouldIgnore);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -320,15 +339,16 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             }
         }
     }
-    public void raycastRightFunction(float _xOffset, float _yOffset, float _entitySpeedMult)
+    void raycastRightFunction(float _xOffset, float _yOffset, float _entityGameSpeed)
     {
-        RaycastHit2D rightRaycast = raycasterComp.rightRaycast(_xOffset, _yOffset, ref velocity, _entitySpeedMult);
+        RaycastHit2D rightRaycast = raycasterComp.rightRaycast(_xOffset, _yOffset, ref velocity, _entityGameSpeed);
         if(rightRaycast.collider != null)
         {
-            Debug.Log("Found something (RIGHT)" + rightRaycast.collider.gameObject.name);
+            //Debug.Log("Found something (RIGHT)" + rightRaycast.collider.gameObject.name);
 
             GameObject hitObject = rightRaycast.collider.gameObject;
-            IDScript hitIDScript = hitObject.GetComponent<IDScript>();
+            scr_BaseObject hitMainScript = hitObject.GetComponent<scr_BaseObject>();
+            IDScript hitIDScript = hitMainScript.objectIDScript;
 
             int targetType = hitIDScript.ObjectType;
             switch(targetType)
@@ -348,7 +368,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(rightRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_VARS.Direction.right, shouldIgnore, gameObject);
+                    raycasterComp.touchObject(rightRaycast, hitObject, hitIDScript, ref velocity, gameObject, GLOBAL_VARS.Direction.right, shouldIgnore);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -356,15 +376,16 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             }
         }
     }
-    public void raycastLeftFunction(float _xOffset, float _yOffset, float _entitySpeedMult)
+    void raycastLeftFunction(float _xOffset, float _yOffset, float _entityGameSpeed)
     {
-        RaycastHit2D leftRaycast = raycasterComp.leftRaycast(_xOffset, _yOffset, ref velocity, _entitySpeedMult);
+        RaycastHit2D leftRaycast = raycasterComp.leftRaycast(_xOffset, _yOffset, ref velocity, _entityGameSpeed);
         if(leftRaycast.collider != null)
         {
-            Debug.Log("Found something (Left)" + leftRaycast.collider.gameObject.name);
+            //Debug.Log("Found something (Left)" + leftRaycast.collider.gameObject.name);
 
             GameObject hitObject = leftRaycast.collider.gameObject;
-            IDScript hitIDScript = hitObject.GetComponent<IDScript>();
+            scr_BaseObject hitMainScript = hitObject.GetComponent<scr_BaseObject>();
+            IDScript hitIDScript = hitMainScript.objectIDScript;
 
             int targetType = hitIDScript.ObjectType;
             switch(targetType)
@@ -384,7 +405,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
                     {
                         didBonk = true;
                     }
-                    raycasterComp.touchObject(leftRaycast, hitObject, hitIDScript, raycast_yOffset, ref velocity, gameObject, GLOBAL_VARS.Direction.left, hitIDScript.passThroughLeft, gameObject);
+                    raycasterComp.touchObject(leftRaycast, hitObject, hitIDScript, ref velocity, gameObject, GLOBAL_VARS.Direction.left, hitIDScript.passThroughLeft);
                     break;
                 default:
                     Debug.LogError("Somehow you hit something that isnt a tracked type (not floor or object)!", gameObject);
@@ -396,18 +417,21 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     [SerializeField] bool isPreppingHat = false, releasingHat = false;
     //We multiply our throwStrength by this so our magnitude doesnt make the throw insanely strong
     //offsetDist is the distance away we'd want the arrow to start from
-    public const float throwFactor = 0.25f, offsetArrowDist = 0.15f;
+    public const float throwFactor = 1f, offsetArrowDist = 0.0f;
     //Min vel bonus is a small factor added on to allow for a velocity bonus to matter as multiplier based on angle 
     //(more than 1 means itll always affect while facing the right direciton while 0 means it might not affect at all)
     //maxThrowStrength is a clamp on the throwStrength based on how far you are aiming 
-    public const float minVelBonus = 0.5f, maxThrowStrength = 3.0f;
+    //velMultFactor is basically how much the entire velocitybonus is multiplied by to make it actually significant
+    public const float minVelBonus = 0.5f, maxThrowStrength = 80.0f, velMultFactor = 1f;
     public static event GLOBAL_VARS.throwHatSignal throwingHat;
-    public void hatThrowLogic()
+    public Vector2 debugMosUnedited, debugMosEdited;
+    public const float hatSpawnOffset = -1.0f;
+
+    void hatThrowLogic()
     {
         //Dont try if bonking atm
         if(abilityKey == 1 && characterState != GLOBAL_VARS.CharacterStates.Bonk)
         {
-            Debug.Log("HAT THROW FIXING");
             if(isPreppingHat == false)
             {
                 isPreppingHat = true;
@@ -419,9 +443,17 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             releasingHat = true;
         }
 
-        Vector2 mosPosition = Input.mousePosition;
-        Vector2 charCurrentPosition = new Vector2(currentRigidBody.transform.position.x, currentRigidBody.transform.position.y);
-        mosPosition = charCurrentPosition + mosPosition - new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+        Vector2 ratioMosPosition = new Vector2(Input.mousePosition.x / Screen.width, Input.mousePosition.y / Screen.height);
+        Vector2 rawMosPosition = new Vector2(Mathf.Lerp(-orthographicHalf.x, orthographicHalf.x, ratioMosPosition.x), Mathf.Lerp(-orthographicHalf.y, orthographicHalf.y, ratioMosPosition.y));
+    
+
+        Vector2 currCharacterPosition = new Vector2(currentRigidBody.transform.position.x + (colliderOffset.x), currentRigidBody.transform.position.y + (colliderOffset.y));
+        
+        Vector2 mosPosition = currCharacterPosition + rawMosPosition;
+
+        debugMosUnedited = rawMosPosition;
+        debugMosEdited = mosPosition;
+
         //mosposition calculations work as so
         //We start from the characte rposition and mouse position is measured from the bottom right of the screen. As a result, itll always be positive which is wrong. 
         //We need it to add or subtract pixels based on characterPosition which when on cam, will always be on the middle of the screen
@@ -432,18 +464,18 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
 
             //Plus drawing the arrow too
 
-            arrowComp.drawArrow(charCurrentPosition, mosPosition, offsetArrowDist);
+            arrowComp.drawArrow(currCharacterPosition, mosPosition, offsetArrowDist);
         }
         else if(releasingHat)
         {
-            Vector2 throwVector = (mosPosition-charCurrentPosition);
+            Vector2 throwVector = (mosPosition-currCharacterPosition);
             float throwStrength = throwVector.magnitude * throwFactor;//float angleBetweenVelocityAndThrow = Math.Abs(Mathf.Acos(((throwVector.x * velocity.x) + (throwVector.y * velocity.y)/(throwVector.magnitude * velocity.magnitude))));
             //Didnt realize that there is a function built in on unity so we'll use that instead
             float angleBetweenVelocityAndThrow = Mathf.Abs(Vector2.Angle(throwVector, velocity));
 
             float velStrength = 0; //Defaults to 0
             if(angleBetweenVelocityAndThrow < 90)
-                velStrength = (90 - angleBetweenVelocityAndThrow)/90 + minVelBonus;
+                velStrength = velMultFactor * ((90 - angleBetweenVelocityAndThrow)/90 + minVelBonus);
 
             Vector2 normalizedAngleVec = throwVector/throwVector.magnitude;
             //Throw the hat at the angle, once the animation is done, we can hide our character/reset it,
@@ -451,11 +483,15 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
             
             //Create a throw vector based on our normalized angle * our strengths added
             throwVector = normalizedAngleVec * (velStrength + throwStrength);
-            throwingHat?.Invoke(throwVector);
+
+            Vector2 hatStartPos = new Vector2(currCharacterPosition.x, currCharacterPosition.y + currRenderer.bounds.size.y + hatSpawnOffset);
             
+            throwingHat?.Invoke(throwVector, hatStartPos);
+            arrowComp.clearArrows();
             //Deactivate the object after sending the invoke and finishing up the animation
-            deactivateObject(true, true);
-            
+            // IT IS NO LONGER MAIN CHARACTER OR CAMERA FOLLOW
+            deactivateObject(false, false);
+            Debug.Log("Threw hat");
         }
     }
     
@@ -466,7 +502,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     private float storedMaxYProg;
     //Allows for better fall state switching since we will always be slightly falling due to gravity but being picked back up due to our raycasts
     private const float fallVelocityThreshold = -0.1f;
-    public void handleAirState()
+    void handleAirState()
     {
         if(raycast_groundHit)
             airState = GLOBAL_VARS.AirStates.Grounded;
@@ -497,7 +533,7 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
     [SerializeField] float runningStateThreshold = 0.4f, sprintingStateThreshold = 0.75f;
     [SerializeField] float bonkEndThreshold = 0.15f;
 
-    public void determineActionState()
+    void determineActionState()
     {   //If currently bonked or has an active bonk then
         if(characterState == GLOBAL_VARS.CharacterStates.Bonk || didBonk)
         {
@@ -571,8 +607,9 @@ public class scr_mainBody_Main : scr_BaseEntity_Main
         {
             characterState = GLOBAL_VARS.CharacterStates.ActiveAbility1;
         }
+        
     }
-    public override void DeathUpdate(float _entitySpeedMult)
+    public override void CharacterDeathUpdate(float _entityGameSpeed)
     {
         throw new NotImplementedException();
     }

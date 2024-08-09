@@ -2,8 +2,9 @@ using UnityEngine;
 public static class GLOBAL_VARS
 {
     public delegate void levelPrimer(int primeObjectType);
+    public delegate void sceneLoad(int transitionType);
     public delegate void slowGameSignal(float numChange, float lerpFactor);
-    public delegate void throwHatSignal(Vector2 _throwVec);
+    public delegate void throwHatSignal(Vector2 _throwVec, Vector2 positionVec);
     public delegate void entityActiveChangeSignal(GameObject activatedObject, bool isMainChar, bool isNewCamTarget);
     public delegate void camChangeSignal(GameObject followObject, bool isActivation);
 
@@ -40,6 +41,13 @@ public static class GLOBAL_VARS
         public const int changeScene = 0;
         public const int changeSettingValue = 1;
     }
+    public struct transitionType
+    {
+        public const int basicFallBlack = 0;
+        public const int basicFallMenu = 1;
+        public const int basicRiseBlack = 2;
+        public const int basicRiseMenu = 3;
+    }
 
     public struct LevelStates
     {
@@ -48,8 +56,6 @@ public static class GLOBAL_VARS
         public const int levelRunning = 2;
         public const int levelEnding = 3;
     }
-
-
     public struct AirStates
     {
         public const int Grounded = 1;
@@ -82,6 +88,12 @@ public static class GLOBAL_VARS
         public const int Hurt = 20;
         public const int Bonk = 21;
         public const int Dead = 22;
+    }
+
+    public struct sceneType
+    {
+        public const int menu = 0;
+        public const int level = 1;
     }
 }
 

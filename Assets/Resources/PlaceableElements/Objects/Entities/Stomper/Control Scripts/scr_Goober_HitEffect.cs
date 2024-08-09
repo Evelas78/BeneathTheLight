@@ -5,7 +5,7 @@ using UnityEngine;
 public class scr_Goober_HitEffect : scr_Effect_Script
 {   
     scr_BaseEntity_Main self_entityScr;
-    private void Awake() 
+    public override void InstantiateEffectScript() 
     {
         self_entityScr = gameObject.GetComponent<scr_BaseEntity_Main>();   
     }

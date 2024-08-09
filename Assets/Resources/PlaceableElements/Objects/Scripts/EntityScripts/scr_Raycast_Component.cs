@@ -22,7 +22,7 @@ public class scr_Raycast_Component : MonoBehaviour
     //Could use binary if necessary for robustness but for now, its alright. 
     public int targetLayer = GLOBAL_VARS.Layers.main;
     public const float boxSize_regFactor = 7/8f, boxSize_arbFactor = 1/16f;
-    void Start()
+    public void InstantiateRaycastComp()
     {
         //y is arbitrary since all that matters is seeing the bottom
         vert_boxCastSize = new Vector2(colliderSize.x * boxSize_regFactor, colliderSize.y * boxSize_arbFactor);
@@ -51,8 +51,6 @@ public class scr_Raycast_Component : MonoBehaviour
             Math.Clamp(entityVelocity.y * _entitySpeedMult - _yOffset, float.NegativeInfinity, 0f), //Distance we send the boxcast, using the velocity (where we'll end up) & the offset we use (make up for starting higher/lowerr)
             targetLayer //Layer we are trying to get casts from
         );
-
-
         
         /* 
                 
@@ -154,8 +152,8 @@ public class scr_Raycast_Component : MonoBehaviour
     }
 
     //Universal script for landing on something, since all of the floors and entities can be reduced to a generalized system
-    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, float _currOffset, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType, bool _ignore, GameObject _gameObject)
-    {  
+    public void touchObject(RaycastHit2D _hitTarget, GameObject _hitObject, IDScript _hitTarget_ID, ref UnityEngine.Vector3 entityVelocity, GameObject _caller, int _hitType, bool _ignore)
+    {
         if(!_ignore)
         {
             float velocity_Clamp = 0;
@@ -195,7 +193,7 @@ public class scr_Raycast_Component : MonoBehaviour
                 break;
 
                 default:
-                    throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + _gameObject.name + "'s main script calls the raycast.touchObject with a valid hit type");
+                    throw new ArgumentOutOfRangeException("Int used is out of range somehow, make sure the calling object " + _caller.name + "'s main script calls the raycast.touchObject with a valid hit type");
             }
         }
         if(_hitTarget_ID.hasEffectScript)
@@ -205,6 +203,7 @@ public class scr_Raycast_Component : MonoBehaviour
         }
     }
     
+    /*
     //These are our testinvariables
     UnityEngine.Vector3 currentColliderPosition;
     Vector2 positionVector;
@@ -223,5 +222,5 @@ public class scr_Raycast_Component : MonoBehaviour
         
         Gizmos.DrawCube(edit, cubeDebugSize);
     }
-    
-}
+    */
+}   

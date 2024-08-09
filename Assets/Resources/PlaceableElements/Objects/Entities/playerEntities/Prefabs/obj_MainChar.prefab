@@ -171,11 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cd2d798c710c34b97989cd7b3a4158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIDs: {fileID: 0}
+  objectIDScript: {fileID: 0}
   currentEntityGameObject: {fileID: 0}
   currentRigidBody: {fileID: 0}
   currentCollider: {fileID: 0}
-  gameControllerScript: {fileID: 0}
+  levelController: {fileID: 0}
   movingHorizontal: 0
   movingVertical: 0
   airState: 0
@@ -191,6 +191,10 @@ MonoBehaviour:
   raycasterComp: {fileID: 0}
   accelComp: {fileID: 0}
   arrowComp: {fileID: 0}
+  currRenderer: {fileID: 0}
+  currCharCollider: {fileID: 0}
+  colliderOffset: {x: 0, y: 0}
+  orthographicHalf: {x: 0, y: 0}
   arrowHeadTemplate: {fileID: 3731004591835116975, guid: f2d7c86f53a6e0848be4b482b8402184, type: 3}
   arrowSegmentTemplate: {fileID: 1482294491328580268, guid: 734e6dc43c1b05546813d80037dfc740, type: 3}
   prev_movingHorizontal: 0
@@ -209,6 +213,8 @@ MonoBehaviour:
   bonkThreshold_Y: 0.75
   isPreppingHat: 0
   releasingHat: 0
+  debugMosUnedited: {x: 0, y: 0}
+  debugMosEdited: {x: 0, y: 0}
   runningStateThreshold: 0.4
   sprintingStateThreshold: 0.75
   bonkEndThreshold: 0.15
@@ -255,11 +261,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4070425079805459946, guid: 4a4a1d1894b95bf41866428eb6a5a478, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.272
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 4070425079805459946, guid: 4a4a1d1894b95bf41866428eb6a5a478, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.996
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4070425079805459946, guid: 4a4a1d1894b95bf41866428eb6a5a478, type: 3}
       propertyPath: m_LocalPosition.z

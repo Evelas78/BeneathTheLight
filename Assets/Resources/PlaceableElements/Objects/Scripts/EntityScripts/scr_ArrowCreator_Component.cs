@@ -63,68 +63,79 @@ public class scr_ArrowCreator_Component : MonoBehaviour
         headDimensions = new Vector2(currSpriteRenderer.bounds.size.x, currSpriteRenderer.bounds.size.y);
     }
 
-    public void bringPiece(Vector2 _placePosition, Quaternion _rotQuat, ref GameObject _target)
+    public void bringPiece(Vector3 _placePosition, Quaternion _rotQuat, ref GameObject _target)
     {
         _target.transform.position = _placePosition;
 
         _target.transform.rotation = _rotQuat;
     }
-    public void drawSegments(Vector2 _offsettedStart, Vector2 _angleVector, Vector2 _perpVector, Quaternion _rotQuat, int _totalNumofSegments)
+    public void drawSegments(Vector2 _offsettedStart, Vector2 _endPos, Vector2 _angleVector, Quaternion _rotQuat, int _totalNumofSegments, float _offsetDistanceBetween, float _zPos)
     {
         float distanceCurrently = 0;
-        Vector2 targetPosition;
+        Vector3 targetPosition;
         for(int i = 0; i < _totalNumofSegments; i++)
         {
             //We add the segment dimensions/2 so we can get the actual bottom spot, and have it so the segments lines up right on the middle of the angle vec
-            targetPosition = _offsettedStart + (distanceCurrently + segmentDimensions.x / 2) * _angleVector;
-            targetPosition += (segmentDimensions.y / 2) * _perpVector; //We just add the minor adjustments as vector arithmetic works the way it does
+            targetPosition = _offsettedStart + (distanceCurrently + segmentDimensions.x) * _angleVector;
 
             GameObject currArrowSegment = arrowSegmentList.ElementAt(i);
+            targetPosition.z = _zPos;
             bringPiece(targetPosition, _rotQuat, ref currArrowSegment);
 
             //Add the length of the arrow segment
             distanceCurrently += segmentDimensions.x;
         }
     }
-    public void drawHead(Vector2 _offsettedStart, Vector2 _endPos, Vector2 _angleVector, Vector2 _perpVector, Quaternion _rotQuat, int _totalNumofSegments, float _offsetDistanceBetween)
+    public void drawHead(Vector2 _offsettedStart, Vector2 _endPos, Vector2 _angleVector, Quaternion _rotQuat, int _totalNumofSegments, float _offsetDistanceBetween, float _zPos)
     {
         //Default to end spot
-        Vector2 headPosition = _endPos;
+        Vector3 headPosition = _endPos;
         
-        float maxDistance = maxArrowSegments * segmentDimensions.x;
-        //If the arrow is = to its max amount of segments, then its possible to be stretched too far with endPos
+        //So our max distance is our arrow segment cumulative total distance plus our half our head as explained in belows calculation
+        float maxDistance = maxArrowSegments * segmentDimensions.x + headDimensions.x/2;
+        //If the arrow is = to its max distance then it has stretched too far
         if(_totalNumofSegments == maxArrowSegments && _offsetDistanceBetween > maxDistance)
         {
             //Similar to the arrow segments, we just set it to the max distance linear combination to get it to the very end
-            headPosition = _offsettedStart + (maxDistance + headDimensions.x) * _angleVector;
-            //We then also apply the perpendicular angle to get it right as well
-            headPosition += headDimensions.y / 2 * _perpVector;
+            //Divide by two since arrowheads position is in the center and thus only want to go half out the full length of the sprite to avoid a gap
+            headPosition = _offsettedStart + maxDistance * _angleVector;
         }
-
+        headPosition.z = _zPos;
         bringPiece(headPosition, _rotQuat, ref obj_arrowHead);
     }
     //100% organize this function into multiple smaller functions, its becoming a mess
-    public void drawArrow(Vector2 _startPos, Vector2 _endPos, float offset)
+    public void drawArrow(Vector2 _startPos, Vector2 _endPos, float _offset)
     {   
+        //Always do this, so pieces dont stay where they were earlier
+        storeArrowPieces();
+
         //Pythagorean thm to get the distance between start and end, getting raw values, no offset
         float distanceBetween = Mathf.Pow(Mathf.Pow(_endPos.x - _startPos.x, 2) + Mathf.Pow(_endPos.y - _startPos.y, 2), (1/2f));
         Vector2 angleVector = (_endPos - _startPos) / distanceBetween; //Represents change of x and y, then we normalize it to make it a base linear combination
         DebugAngleVec = angleVector;
-        
-        //Perpendicular vector that is aimed clockwise (so it goes downwards rather than upwards)
-        Vector2 perpVector = new Vector2(angleVector.y, -angleVector.x); //remember, dot product = 0 means perpendicular and just visualize drawing the arrow in your mind)
-        Quaternion targetRotation = Quaternion.LookRotation(angleVector, Vector2.up);
+
+        float angleOfElevation = Mathf.Rad2Deg * Mathf.Atan(angleVector.y / angleVector.x);
+        angleOfElevation = (angleVector.x < 0) ? angleOfElevation + 180: angleOfElevation;
+
+        Vector3 fixedAngleVecQuat = new Vector3(angleVector.x, angleVector.y, 1);
+        Quaternion quaternionFeed = Quaternion.Euler(0, 0, angleOfElevation);
+
 
         //Since the two above are now RAW values, we have the RAW angle and RAW distance
         //We use the raw angle to add to the original start position
 
-        Vector2 offsettedStart = _startPos + offset * angleVector; //Offset * angle vector = aimed linear combination to add 
-        float offsetDistanceBetween = distanceBetween - offset; //Also fix a correct offsetDistanceBetween for correct usage
+        Vector2 offsettedStart = _startPos + _offset * angleVector; //Offset * angle vector = aimed linear combination to add 
+        float offsetDistanceBetween = distanceBetween - _offset; //Also fix a correct offsetDistanceBetween for correct usage
 
-        int totalNumofSegments = (Math.Ceiling(offsetDistanceBetween) > maxArrowSegments) ? maxArrowSegments : (int)Math.Ceiling(offsetDistanceBetween);
+        debugPosition = offsettedStart;
+
+        //Just calc how much the distanceBetween can carry with segmentDimensions, allowing int casting to drop the decimal
+        float calcNumOfSegments = distanceBetween / (segmentDimensions.x);
+        int totalNumOfSegments = (int)Math.Clamp(calcNumOfSegments, 0, maxArrowSegments);
+
         //Using the list, start from to 0 to the totalNumOfSegments, placing each one next to each other
-        drawSegments(offsettedStart, angleVector, perpVector, targetRotation, totalNumofSegments);
-        drawHead(offsettedStart, _endPos, angleVector, perpVector, targetRotation, totalNumofSegments, offsetDistanceBetween);
+        drawSegments(offsettedStart, _endPos, angleVector, quaternionFeed, totalNumOfSegments, offsetDistanceBetween, 2);
+        drawHead(offsettedStart, _endPos, angleVector, quaternionFeed, totalNumOfSegments, offsetDistanceBetween, 1);
     }
 
     public void storeArrowPieces()
@@ -153,5 +164,10 @@ public class scr_ArrowCreator_Component : MonoBehaviour
             obj_arrowHead = null;
         }
         
+    }
+    private Vector2 debugPosition = new Vector2(0,0);
+    private void OnDrawGizmos() {
+        UnityEngine.Vector3 cubeDebugSize = new UnityEngine.Vector3(0.1f,0.1f,0.1f);
+        Gizmos.DrawCube(debugPosition, cubeDebugSize);
     }
 }

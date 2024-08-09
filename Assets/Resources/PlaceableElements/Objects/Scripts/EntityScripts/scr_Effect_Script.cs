@@ -10,6 +10,9 @@ public abstract class scr_Effect_Script : MonoBehaviour
         Special,
         Damaging
     }
+    
+    public abstract void InstantiateEffectScript();
+
     public abstract void HitTarget(GameObject _hitBy, RaycastHit2D _currRaycastInfo, int hitType);
     //Function to remove itself from the currently affected object
     //(this basically allows for easier logic when iframes, or something conflicts)

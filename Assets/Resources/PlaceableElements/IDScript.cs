@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class IDScript : MonoBehaviour
+public class IDScript
 {
     public int ObjectType;
     public int ControllerType;

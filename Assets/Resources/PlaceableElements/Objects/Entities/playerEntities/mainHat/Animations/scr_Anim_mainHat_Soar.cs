@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class scr_Anim_mainHat_Soar : scr_Anim_mainHat_template
+public class scr_Anim_mainHat_Spin : scr_Anim_mainHat_template
 {
     [SerializeField] public static Dictionary<int, float> frameData = new Dictionary<int, float>();
 
-    public scr_Anim_mainHat_Soar(string _objectName, string _objectType) : base(_objectName, _objectType)  
+    public scr_Anim_mainHat_Spin(string _objectName, string _objectType) : base(_objectName, _objectType)  
     {
-        loadFrames("sp_mainHat_Soar");
+        loadFrames("sp_mainHat_Spin");
         
         frameData.Add(0, .25f);
         frameData.Add(1, .25f);
