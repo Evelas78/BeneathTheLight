@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1745460927100009786}
   - component: {fileID: 6123463011857016745}
   - component: {fileID: 2371510681717097004}
-  - component: {fileID: -6775783884032236533}
+  - component: {fileID: -1085182600574139457}
   m_Layer: 7
   m_Name: SolidFloor
   m_TagString: Landable
@@ -131,7 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-6775783884032236533
+--- !u!114 &-1085182600574139457
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,4 +143,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f136b923c7db1479900247b5d32b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectIDs: {fileID: 0}
+  currentEntityGameObject: {fileID: 0}
+  currentRigidBody: {fileID: 0}
+  currentCollider: {fileID: 0}
+  levelController: {fileID: 0}
+  isAnimated: 1
+  isStationary: 0
+  movingHorizontal: 0
+  movingVertical: 0
+  airState: 0
+  characterState: 0
+  prevState: 0
+  mass: 10
+  velocity: {x: 0, y: 0, z: 0}
+  MaxHealth: 0
+  Health: 0
+  isDead: 0
+  spEffectList: []
+  dmgEffect: {fileID: 0}

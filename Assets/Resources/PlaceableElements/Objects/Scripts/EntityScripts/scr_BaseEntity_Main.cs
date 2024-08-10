@@ -17,6 +17,7 @@ public abstract class scr_BaseEntity_Main : scr_BaseObject
     public Rigidbody2D currentRigidBody;
     public BoxCollider2D currentCollider;
     public scr_levelController levelController;
+    public bool isAnimated = true, isStationary = false;
     
     //To pass to our animation controller & generalize logic for movement
 
@@ -63,10 +64,13 @@ public abstract class scr_BaseEntity_Main : scr_BaseObject
         levelController = gameController.GetComponent<scr_levelController>();
 
         currentEntityGameObject = gameObject; 
-        currentRigidBody = currentEntityGameObject.GetComponent<Rigidbody2D>();
+        
         currentCollider = currentEntityGameObject.GetComponent<BoxCollider2D>();
 
         CharacterAwake();
+        
+        if(!isStationary)
+            currentRigidBody = currentEntityGameObject.GetComponent<Rigidbody2D>();
     }
 
     //This is for AFTER level is primed
@@ -76,15 +80,19 @@ public abstract class scr_BaseEntity_Main : scr_BaseObject
     }
     public void entityUpdate(float _entitySpeedMult)
     {
+
         CharacterUpdate(_entitySpeedMult);   
-        if(characterState != prevState)
+        if(isAnimated)
         {
-            //Debug.Log("Character State Change");
-            animationController.spriteLoad(characterState);
-            prevState = characterState;
+            if(characterState != prevState)
+            {
+                //Debug.Log("Character State Change");
+                animationController.spriteLoad(characterState);
+                prevState = characterState;
+            }
+
+            animationController.SpriteController(_entitySpeedMult);
         }
-        
-        animationController.SpriteController(_entitySpeedMult);
     }
     public void entityFixedUpdate(float _entitySpeedMult) {
         if(characterState != GLOBAL_VARS.CharacterStates.Dead)
@@ -93,8 +101,10 @@ public abstract class scr_BaseEntity_Main : scr_BaseObject
         }
         else
             CharacterDeathUpdate(_entitySpeedMult);
+       
         //Updates the position at the very end of the frame
-        currentRigidBody.transform.position += velocity * _entitySpeedMult;
+        if(!isStationary)
+            currentRigidBody.transform.position += velocity * _entitySpeedMult;
     }
 
     public UnityEngine.Vector3 getVelocity() { return velocity; }

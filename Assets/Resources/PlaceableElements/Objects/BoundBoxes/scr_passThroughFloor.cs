@@ -8,6 +8,8 @@ public class scr_PassThroughFloor : scr_BaseEntity_Main
 
     public override void CharacterAwake()
     {
+        isAnimated = false;
+        isStationary = true;
         if(passThroughFloorIDScript == null)
         {
             passThroughFloorIDScript = new IDScript();

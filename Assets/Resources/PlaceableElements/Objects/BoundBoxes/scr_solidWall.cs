@@ -6,6 +6,8 @@ public class scr_solidFloor : scr_BaseEntity_Main
     public static IDScript solidFloorIDScript;
     public override void CharacterAwake()
     {
+        isAnimated = false;
+        isStationary = true;
         if(solidFloorIDScript == null)
         {
             solidFloorIDScript = new IDScript();
@@ -14,6 +16,7 @@ public class scr_solidFloor : scr_BaseEntity_Main
             solidFloorIDScript.hasEffectScript = false;
         }
         objectIDScript = solidFloorIDScript;
+
     }
     public override void CharacterStart() {}
     public override void CharacterFixedUpdate(float __unused__) {}
