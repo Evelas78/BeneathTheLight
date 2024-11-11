@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 0154f66d57982f247a1f0b39a9fb102b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - transAnimator: {instanceID: 0}
+  - levelControllerTemplate: {fileID: 7152354786465865591, guid: 0764e6b2d680b1d4d84aae490300b115, type: 3}
+  - itemPool: {fileID: 7051807206276943991, guid: 637d16aa4abb723409ff5e545794970f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

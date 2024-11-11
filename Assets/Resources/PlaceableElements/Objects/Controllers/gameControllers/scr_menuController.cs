@@ -1,8 +1,0 @@
-using UnityEngine;
-using System.Collections.Generic;
-
-
-public class scr_menuController : MonoBehaviour
-{
-
-}

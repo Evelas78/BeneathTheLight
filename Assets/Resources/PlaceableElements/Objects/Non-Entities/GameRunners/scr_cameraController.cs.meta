@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 08841954bb2f49f479e8ea3c8a0e71d8
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gameController: {instanceID: 0}
+  - currCamera: {instanceID: 0}
+  - currCamTarget: {instanceID: 0}
+  - camSpotTemplate: {fileID: 648827506622890462, guid: 08714604891e4de4aa487de42ef894c5, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
