@@ -11,7 +11,9 @@ public class scr_Goober_Main : scr_BaseEntity_Main
     [SerializeField] private scr_Acceleration_Component accelComp = null;
     
     public static IDScript mainBodyIDScript;
-
+    public SpriteRenderer currRenderer;
+    public Vector2 colliderOffset;
+    public Vector2 orthographicHalf;
     public override void CharacterAwake()
     {
         if(mainBodyIDScript == null)
